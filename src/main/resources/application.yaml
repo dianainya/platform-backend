@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: platform
+  datasource:
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:6432}/${DATABASE_NAME:platform}?prepareThreshold=0
+    driver-class-name: org.postgresql.Driver
+    username: ${DATABASE_USER:platform}
+    password: ${DATABASE_PASSWORD:password}
+
+server:
+  port: 8989
+
+jwt:
+  secret: ${JWT_SECRET:oooCHINAZESoooCHINAZESoooCHINAZESoooCHINAZESoooCHINAZESoooCHINAZES}

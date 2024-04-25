@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  postgres-platform:
+    container_name: postgres-platform
+    image: postgres:14.7
+    restart: on-failure
+    volumes:
+      - ./compose-data/postgres-platform:/var/lib/pgsql/data
+    ports:
+      - "6432:5432"
+    environment:
+      - POSTGRES_USER=platform
+      - POSTGRES_PASSWORD=password
+      - PGDATA=/var/lib/pgsql/data
+      - POSTGRES_DB=platform
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5

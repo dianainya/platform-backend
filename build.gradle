@@ -1,0 +1,108 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+	id 'org.springframework.boot' version '3.2.5'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.jetbrains.kotlin.jvm' version '1.9.23'
+	id 'org.jetbrains.kotlin.plugin.spring' version '1.9.23'
+	id "org.flywaydb.flyway" version "7.12.1"
+	id 'nu.studer.jooq' version "8.2.1"
+}
+
+group = 'sadiva.mpi.platformbackend'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+
+	// db
+	implementation 'org.springframework.boot:spring-boot-starter-jooq'
+	implementation 'org.flywaydb:flyway-core'
+	runtimeOnly 'org.postgresql:postgresql'
+	jooqGenerator 'org.postgresql:postgresql'
+
+	// jwt
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+	compileOnly 'org.projectlombok:lombok:1.18.20'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.withType(KotlinCompile) {
+	kotlinOptions {
+		freeCompilerArgs += '-Xjsr305=strict'
+		jvmTarget = '17'
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+
+def dbDriver = 'org.postgresql.Driver'
+def dbUser = System.getenv('DATABASE_USER') ?: 'platform'
+def dbPassword = System.getenv('DATABASE_PASSWORD') ?: 'password'
+def dbHost = System.getenv('DATABASE_HOST') ?: 'localhost'
+def dbPort = System.getenv('DATABASE_PORT') ?: 6432
+def dbName = System.getenv('DATABASE_NAME') ?: 'platform'
+def dbUrl = System.getenv('DATABASE_URL') ?: "jdbc:postgresql://$dbHost:$dbPort/$dbName"
+
+flyway {
+	url = dbUrl
+	user = dbUser
+	password = dbPassword
+}
+
+
+jooq {
+	configurations {
+		main {
+			generateSchemaSourceOnCompilation = false
+			generationTool {
+				logging = org.jooq.meta.jaxb.Logging.WARN
+				jdbc {
+					driver = dbDriver
+					url = dbUrl
+					user = dbUser
+					password = dbPassword
+				}
+				generator {
+					name = 'org.jooq.codegen.DefaultGenerator'
+					database {
+						name = 'org.jooq.meta.postgres.PostgresDatabase'
+						inputSchema = 'public'
+						excludes = 'flyway_schema_history|pg_stat_statements|pg_stat_statements_info|pg_stat_statements_reset'
+					}
+					generate {
+						fluentSetters = true
+						validationAnnotations = true
+						pojos = true
+						newline = '\\r\\n'
+					}
+					target {
+						directory = 'src/main/generated'
+						packageName = 'jooq.sadiva.mpi.platformbackend'
+					}
+					strategy.name = 'org.jooq.codegen.DefaultGeneratorStrategy'
+				}
+			}
+		}
+	}
+}

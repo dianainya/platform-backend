@@ -7,8 +7,11 @@ package jooq.sadiva.mpi.platformbackend;
 import java.util.Arrays;
 import java.util.List;
 
+import jooq.sadiva.mpi.platformbackend.tables.Dish;
+import jooq.sadiva.mpi.platformbackend.tables.DishReceipt;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformRole;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformUser;
+import jooq.sadiva.mpi.platformbackend.tables.Product;
 import jooq.sadiva.mpi.platformbackend.tables.UserRole;
 
 import org.jooq.Catalog;
@@ -30,6 +33,16 @@ public class Public extends SchemaImpl {
     public static final Public PUBLIC = new Public();
 
     /**
+     * The table <code>public.dish</code>.
+     */
+    public final Dish DISH = Dish.DISH;
+
+    /**
+     * The table <code>public.dish_receipt</code>.
+     */
+    public final DishReceipt DISH_RECEIPT = DishReceipt.DISH_RECEIPT;
+
+    /**
      * The table <code>public.platform_role</code>.
      */
     public final PlatformRole PLATFORM_ROLE = PlatformRole.PLATFORM_ROLE;
@@ -38,6 +51,11 @@ public class Public extends SchemaImpl {
      * The table <code>public.platform_user</code>.
      */
     public final PlatformUser PLATFORM_USER = PlatformUser.PLATFORM_USER;
+
+    /**
+     * The table <code>public.product</code>.
+     */
+    public final Product PRODUCT = Product.PRODUCT;
 
     /**
      * The table <code>public.user_role</code>.
@@ -60,8 +78,11 @@ public class Public extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
+            Dish.DISH,
+            DishReceipt.DISH_RECEIPT,
             PlatformRole.PLATFORM_ROLE,
             PlatformUser.PLATFORM_USER,
+            Product.PRODUCT,
             UserRole.USER_ROLE
         );
     }

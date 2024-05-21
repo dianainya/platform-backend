@@ -4,8 +4,11 @@
 package jooq.sadiva.mpi.platformbackend;
 
 
+import jooq.sadiva.mpi.platformbackend.tables.Dish;
+import jooq.sadiva.mpi.platformbackend.tables.DishReceipt;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformRole;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformUser;
+import jooq.sadiva.mpi.platformbackend.tables.Product;
 import jooq.sadiva.mpi.platformbackend.tables.UserRole;
 
 
@@ -16,6 +19,16 @@ import jooq.sadiva.mpi.platformbackend.tables.UserRole;
 public class Tables {
 
     /**
+     * The table <code>public.dish</code>.
+     */
+    public static final Dish DISH = Dish.DISH;
+
+    /**
+     * The table <code>public.dish_receipt</code>.
+     */
+    public static final DishReceipt DISH_RECEIPT = DishReceipt.DISH_RECEIPT;
+
+    /**
      * The table <code>public.platform_role</code>.
      */
     public static final PlatformRole PLATFORM_ROLE = PlatformRole.PLATFORM_ROLE;
@@ -24,6 +37,11 @@ public class Tables {
      * The table <code>public.platform_user</code>.
      */
     public static final PlatformUser PLATFORM_USER = PlatformUser.PLATFORM_USER;
+
+    /**
+     * The table <code>public.product</code>.
+     */
+    public static final Product PRODUCT = Product.PRODUCT;
 
     /**
      * The table <code>public.user_role</code>.

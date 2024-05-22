@@ -1,5 +1,19 @@
 version: '3.8'
 services:
+  spring-boot-app:
+    container_name: spring-boot-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres-platform
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-platform:5432/platform
+      SPRING_DATASOURCE_USERNAME: platform
+      SPRING_DATASOURCE_PASSWORD: password
+
   postgres-platform:
     container_name: postgres-platform
     image: postgres:14.7

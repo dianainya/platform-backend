@@ -6,7 +6,8 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: ${DATABASE_USER:platform}
     password: ${DATABASE_PASSWORD:password}
-
+  flyway:
+    baselineOnMigrate: true
 server:
   port: ${SERVER_PORT:8989}
 

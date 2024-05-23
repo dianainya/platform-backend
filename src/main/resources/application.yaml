@@ -8,6 +8,8 @@ spring:
     password: ${DATABASE_PASSWORD:password}
   flyway:
     baselineOnMigrate: true
+    clean-on-validation-error: false
+    clean-disabled: true
 server:
   port: ${SERVER_PORT:8989}
 

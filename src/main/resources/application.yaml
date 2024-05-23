@@ -7,9 +7,7 @@ spring:
     username: ${DATABASE_USER:platform}
     password: ${DATABASE_PASSWORD:password}
   flyway:
-    baselineOnMigrate: true
-    clean-on-validation-error: false
-    clean-disabled: true
+    default-schema: ${DATABASE_SCHEME:s283945}
 server:
   port: ${SERVER_PORT:8989}
 

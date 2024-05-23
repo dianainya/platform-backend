@@ -71,11 +71,15 @@ def dbHost = System.getenv('DATABASE_HOST') ?: 'localhost'
 def dbPort = System.getenv('DATABASE_PORT') ?: 6432
 def dbName = System.getenv('DATABASE_NAME') ?: 'platform'
 def dbUrl = System.getenv('DATABASE_URL') ?: "jdbc:postgresql://$dbHost:$dbPort/$dbName"
+def dbScheme = System.getenv('DATABASE_SCHEME') ?:'s283945'
 
 flyway {
     url = dbUrl
     user = dbUser
     password = dbPassword
+    baselineOnMigrate = true
+    schemas = [dbScheme]
+    defaultSchema = dbScheme
 }
 
 

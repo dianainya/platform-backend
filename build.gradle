@@ -95,7 +95,7 @@ jooq {
                     name = 'org.jooq.codegen.DefaultGenerator'
                     database {
                         name = 'org.jooq.meta.postgres.PostgresDatabase'
-                        inputSchema = 'public'
+                        inputSchema = 's283945'
                         excludes = 'flyway_schema_history|pg_stat_statements|pg_stat_statements_info|pg_stat_statements_reset'
                     }
                     generate {

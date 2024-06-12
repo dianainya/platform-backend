@@ -26,9 +26,9 @@ public class DefaultCatalog extends CatalogImpl {
     public static final DefaultCatalog DEFAULT_CATALOG = new DefaultCatalog();
 
     /**
-     * The schema <code>public</code>.
+     * The schema <code>s283945</code>.
      */
-    public final Public PUBLIC = Public.PUBLIC;
+    public final S283945 S283945 = jooq.sadiva.mpi.platformbackend.S283945.S283945;
 
     /**
      * No further instances allowed
@@ -40,7 +40,7 @@ public class DefaultCatalog extends CatalogImpl {
     @Override
     public final List<Schema> getSchemas() {
         return Arrays.asList(
-            Public.PUBLIC
+            S283945.S283945
         );
     }
 

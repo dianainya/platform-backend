@@ -10,7 +10,7 @@ import java.util.UUID;
 import java.util.function.Function;
 
 import jooq.sadiva.mpi.platformbackend.Keys;
-import jooq.sadiva.mpi.platformbackend.Public;
+import jooq.sadiva.mpi.platformbackend.S283945;
 import jooq.sadiva.mpi.platformbackend.tables.records.ProductRecord;
 
 import org.jooq.Field;
@@ -40,7 +40,7 @@ public class Product extends TableImpl<ProductRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>public.product</code>
+     * The reference instance of <code>s283945.product</code>
      */
     public static final Product PRODUCT = new Product();
 
@@ -53,39 +53,39 @@ public class Product extends TableImpl<ProductRecord> {
     }
 
     /**
-     * The column <code>public.product.id</code>.
+     * The column <code>s283945.product.id</code>.
      */
     public final TableField<ProductRecord, UUID> ID = createField(DSL.name("id"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field(DSL.raw("gen_random_uuid()"), SQLDataType.UUID)), this, "");
 
     /**
-     * The column <code>public.product.name</code>.
+     * The column <code>s283945.product.name</code>.
      */
     public final TableField<ProductRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>public.product.calories</code>.
+     * The column <code>s283945.product.calories</code>.
      */
     public final TableField<ProductRecord, Integer> CALORIES = createField(DSL.name("calories"), SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>public.product.proteins</code>.
+     * The column <code>s283945.product.proteins</code>.
      */
     public final TableField<ProductRecord, Integer> PROTEINS = createField(DSL.name("proteins"), SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>public.product.fats</code>.
+     * The column <code>s283945.product.fats</code>.
      */
     public final TableField<ProductRecord, Integer> FATS = createField(DSL.name("fats"), SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>public.product.carbohydrates</code>.
+     * The column <code>s283945.product.carbohydrates</code>.
      */
     public final TableField<ProductRecord, Integer> CARBOHYDRATES = createField(DSL.name("carbohydrates"), SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>public.product.available_weight</code>.
+     * The column <code>s283945.product.weight</code>.
      */
-    public final TableField<ProductRecord, Double> AVAILABLE_WEIGHT = createField(DSL.name("available_weight"), SQLDataType.DOUBLE.defaultValue(DSL.field(DSL.raw("0"), SQLDataType.DOUBLE)), this, "");
+    public final TableField<ProductRecord, Integer> WEIGHT = createField(DSL.name("weight"), SQLDataType.INTEGER.nullable(false), this, "");
 
     private Product(Name alias, Table<ProductRecord> aliased) {
         this(alias, aliased, null);
@@ -96,21 +96,21 @@ public class Product extends TableImpl<ProductRecord> {
     }
 
     /**
-     * Create an aliased <code>public.product</code> table reference
+     * Create an aliased <code>s283945.product</code> table reference
      */
     public Product(String alias) {
         this(DSL.name(alias), PRODUCT);
     }
 
     /**
-     * Create an aliased <code>public.product</code> table reference
+     * Create an aliased <code>s283945.product</code> table reference
      */
     public Product(Name alias) {
         this(alias, PRODUCT);
     }
 
     /**
-     * Create a <code>public.product</code> table reference
+     * Create a <code>s283945.product</code> table reference
      */
     public Product() {
         this(DSL.name("product"), null);
@@ -122,7 +122,7 @@ public class Product extends TableImpl<ProductRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Public.PUBLIC;
+        return aliased() ? null : S283945.S283945;
     }
 
     @Override
@@ -179,14 +179,14 @@ public class Product extends TableImpl<ProductRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<UUID, String, Integer, Integer, Integer, Integer, Double> fieldsRow() {
+    public Row7<UUID, String, Integer, Integer, Integer, Integer, Integer> fieldsRow() {
         return (Row7) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function7<? super UUID, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Double, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function7<? super UUID, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -194,7 +194,7 @@ public class Product extends TableImpl<ProductRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super UUID, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Double, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super UUID, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

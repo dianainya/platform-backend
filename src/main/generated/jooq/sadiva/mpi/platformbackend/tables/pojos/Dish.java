@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 
@@ -21,35 +22,47 @@ public class Dish implements Serializable {
 
     private UUID id;
     private String name;
+    private String receipt;
     private String description;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public Dish() {}
 
     public Dish(Dish value) {
         this.id = value.id;
         this.name = value.name;
+        this.receipt = value.receipt;
         this.description = value.description;
+        this.createdAt = value.createdAt;
+        this.updatedAt = value.updatedAt;
     }
 
     public Dish(
         UUID id,
         String name,
-        String description
+        String receipt,
+        String description,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
     ) {
         this.id = id;
         this.name = name;
+        this.receipt = receipt;
         this.description = description;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     /**
-     * Getter for <code>public.dish.id</code>.
+     * Getter for <code>s283945.dish.id</code>.
      */
     public UUID getId() {
         return this.id;
     }
 
     /**
-     * Setter for <code>public.dish.id</code>.
+     * Setter for <code>s283945.dish.id</code>.
      */
     public Dish setId(UUID id) {
         this.id = id;
@@ -57,7 +70,7 @@ public class Dish implements Serializable {
     }
 
     /**
-     * Getter for <code>public.dish.name</code>.
+     * Getter for <code>s283945.dish.name</code>.
      */
     @NotNull
     @Size(max = 255)
@@ -66,7 +79,7 @@ public class Dish implements Serializable {
     }
 
     /**
-     * Setter for <code>public.dish.name</code>.
+     * Setter for <code>s283945.dish.name</code>.
      */
     public Dish setName(String name) {
         this.name = name;
@@ -74,17 +87,63 @@ public class Dish implements Serializable {
     }
 
     /**
-     * Getter for <code>public.dish.description</code>.
+     * Getter for <code>s283945.dish.receipt</code>.
+     */
+    @NotNull
+    public String getReceipt() {
+        return this.receipt;
+    }
+
+    /**
+     * Setter for <code>s283945.dish.receipt</code>.
+     */
+    public Dish setReceipt(String receipt) {
+        this.receipt = receipt;
+        return this;
+    }
+
+    /**
+     * Getter for <code>s283945.dish.description</code>.
      */
     public String getDescription() {
         return this.description;
     }
 
     /**
-     * Setter for <code>public.dish.description</code>.
+     * Setter for <code>s283945.dish.description</code>.
      */
     public Dish setDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    /**
+     * Getter for <code>s283945.dish.created_at</code>.
+     */
+    public LocalDateTime getCreatedAt() {
+        return this.createdAt;
+    }
+
+    /**
+     * Setter for <code>s283945.dish.created_at</code>.
+     */
+    public Dish setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Getter for <code>s283945.dish.updated_at</code>.
+     */
+    public LocalDateTime getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    /**
+     * Setter for <code>s283945.dish.updated_at</code>.
+     */
+    public Dish setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
         return this;
     }
 
@@ -109,11 +168,29 @@ public class Dish implements Serializable {
         }
         else if (!this.name.equals(other.name))
             return false;
+        if (this.receipt == null) {
+            if (other.receipt != null)
+                return false;
+        }
+        else if (!this.receipt.equals(other.receipt))
+            return false;
         if (this.description == null) {
             if (other.description != null)
                 return false;
         }
         else if (!this.description.equals(other.description))
+            return false;
+        if (this.createdAt == null) {
+            if (other.createdAt != null)
+                return false;
+        }
+        else if (!this.createdAt.equals(other.createdAt))
+            return false;
+        if (this.updatedAt == null) {
+            if (other.updatedAt != null)
+                return false;
+        }
+        else if (!this.updatedAt.equals(other.updatedAt))
             return false;
         return true;
     }
@@ -124,7 +201,10 @@ public class Dish implements Serializable {
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
         result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+        result = prime * result + ((this.receipt == null) ? 0 : this.receipt.hashCode());
         result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
+        result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
+        result = prime * result + ((this.updatedAt == null) ? 0 : this.updatedAt.hashCode());
         return result;
     }
 
@@ -134,7 +214,10 @@ public class Dish implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(name);
+        sb.append(", ").append(receipt);
         sb.append(", ").append(description);
+        sb.append(", ").append(createdAt);
+        sb.append(", ").append(updatedAt);
 
         sb.append(")");
         return sb.toString();

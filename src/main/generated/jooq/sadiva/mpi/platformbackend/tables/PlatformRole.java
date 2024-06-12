@@ -7,7 +7,7 @@ package jooq.sadiva.mpi.platformbackend.tables;
 import java.util.function.Function;
 
 import jooq.sadiva.mpi.platformbackend.Keys;
-import jooq.sadiva.mpi.platformbackend.Public;
+import jooq.sadiva.mpi.platformbackend.S283945;
 import jooq.sadiva.mpi.platformbackend.tables.records.PlatformRoleRecord;
 
 import org.jooq.Field;
@@ -37,7 +37,7 @@ public class PlatformRole extends TableImpl<PlatformRoleRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>public.platform_role</code>
+     * The reference instance of <code>s283945.platform_role</code>
      */
     public static final PlatformRole PLATFORM_ROLE = new PlatformRole();
 
@@ -50,7 +50,7 @@ public class PlatformRole extends TableImpl<PlatformRoleRecord> {
     }
 
     /**
-     * The column <code>public.platform_role.name</code>.
+     * The column <code>s283945.platform_role.name</code>.
      */
     public final TableField<PlatformRoleRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(50).nullable(false), this, "");
 
@@ -63,21 +63,21 @@ public class PlatformRole extends TableImpl<PlatformRoleRecord> {
     }
 
     /**
-     * Create an aliased <code>public.platform_role</code> table reference
+     * Create an aliased <code>s283945.platform_role</code> table reference
      */
     public PlatformRole(String alias) {
         this(DSL.name(alias), PLATFORM_ROLE);
     }
 
     /**
-     * Create an aliased <code>public.platform_role</code> table reference
+     * Create an aliased <code>s283945.platform_role</code> table reference
      */
     public PlatformRole(Name alias) {
         this(alias, PLATFORM_ROLE);
     }
 
     /**
-     * Create a <code>public.platform_role</code> table reference
+     * Create a <code>s283945.platform_role</code> table reference
      */
     public PlatformRole() {
         this(DSL.name("platform_role"), null);
@@ -89,7 +89,7 @@ public class PlatformRole extends TableImpl<PlatformRoleRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Public.PUBLIC;
+        return aliased() ? null : S283945.S283945;
     }
 
     @Override

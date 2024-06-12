@@ -38,7 +38,7 @@ public class UserRole implements Serializable {
     }
 
     /**
-     * Getter for <code>public.user_role.user_id</code>.
+     * Getter for <code>s283945.user_role.user_id</code>.
      */
     @NotNull
     public UUID getUserId() {
@@ -46,7 +46,7 @@ public class UserRole implements Serializable {
     }
 
     /**
-     * Setter for <code>public.user_role.user_id</code>.
+     * Setter for <code>s283945.user_role.user_id</code>.
      */
     public UserRole setUserId(UUID userId) {
         this.userId = userId;
@@ -54,7 +54,7 @@ public class UserRole implements Serializable {
     }
 
     /**
-     * Getter for <code>public.user_role.role</code>.
+     * Getter for <code>s283945.user_role.role</code>.
      */
     @NotNull
     @Size(max = 50)
@@ -63,7 +63,7 @@ public class UserRole implements Serializable {
     }
 
     /**
-     * Setter for <code>public.user_role.role</code>.
+     * Setter for <code>s283945.user_role.role</code>.
      */
     public UserRole setRole(String role) {
         this.role = role;

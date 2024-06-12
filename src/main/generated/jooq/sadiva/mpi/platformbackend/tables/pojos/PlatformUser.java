@@ -46,14 +46,14 @@ public class PlatformUser implements Serializable {
     }
 
     /**
-     * Getter for <code>public.platform_user.user_id</code>.
+     * Getter for <code>s283945.platform_user.user_id</code>.
      */
     public UUID getUserId() {
         return this.userId;
     }
 
     /**
-     * Setter for <code>public.platform_user.user_id</code>.
+     * Setter for <code>s283945.platform_user.user_id</code>.
      */
     public PlatformUser setUserId(UUID userId) {
         this.userId = userId;
@@ -61,7 +61,7 @@ public class PlatformUser implements Serializable {
     }
 
     /**
-     * Getter for <code>public.platform_user.username</code>.
+     * Getter for <code>s283945.platform_user.username</code>.
      */
     @NotNull
     @Size(max = 50)
@@ -70,7 +70,7 @@ public class PlatformUser implements Serializable {
     }
 
     /**
-     * Setter for <code>public.platform_user.username</code>.
+     * Setter for <code>s283945.platform_user.username</code>.
      */
     public PlatformUser setUsername(String username) {
         this.username = username;
@@ -78,7 +78,7 @@ public class PlatformUser implements Serializable {
     }
 
     /**
-     * Getter for <code>public.platform_user.password</code>.
+     * Getter for <code>s283945.platform_user.password</code>.
      */
     @NotNull
     @Size(max = 100)
@@ -87,7 +87,7 @@ public class PlatformUser implements Serializable {
     }
 
     /**
-     * Setter for <code>public.platform_user.password</code>.
+     * Setter for <code>s283945.platform_user.password</code>.
      */
     public PlatformUser setPassword(String password) {
         this.password = password;
@@ -95,14 +95,14 @@ public class PlatformUser implements Serializable {
     }
 
     /**
-     * Getter for <code>public.platform_user.activated</code>.
+     * Getter for <code>s283945.platform_user.activated</code>.
      */
     public Boolean getActivated() {
         return this.activated;
     }
 
     /**
-     * Setter for <code>public.platform_user.activated</code>.
+     * Setter for <code>s283945.platform_user.activated</code>.
      */
     public PlatformUser setActivated(Boolean activated) {
         this.activated = activated;

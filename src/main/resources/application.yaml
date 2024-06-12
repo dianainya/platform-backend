@@ -2,7 +2,7 @@ spring:
   application:
     name: platform
   datasource:
-    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:6432}/${DATABASE_NAME:platform}?prepareThreshold=0
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:6432}/${DATABASE_NAME:platform}?prepareThreshold=0&currentSchema=${DATABASE_SCHEME:s283945}
     driver-class-name: org.postgresql.Driver
     username: ${DATABASE_USER:platform}
     password: ${DATABASE_PASSWORD:password}

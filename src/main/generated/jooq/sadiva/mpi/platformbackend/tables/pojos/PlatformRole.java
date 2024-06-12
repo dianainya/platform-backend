@@ -33,7 +33,7 @@ public class PlatformRole implements Serializable {
     }
 
     /**
-     * Getter for <code>public.platform_role.name</code>.
+     * Getter for <code>s283945.platform_role.name</code>.
      */
     @NotNull
     @Size(max = 50)
@@ -42,7 +42,7 @@ public class PlatformRole implements Serializable {
     }
 
     /**
-     * Setter for <code>public.platform_role.name</code>.
+     * Setter for <code>s283945.platform_role.name</code>.
      */
     public PlatformRole setName(String name) {
         this.name = name;

@@ -1,4 +1,4 @@
-package sadiva.mpi.platformbackend.controller;
+package sadiva.mpi.platformbackend.controller.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;

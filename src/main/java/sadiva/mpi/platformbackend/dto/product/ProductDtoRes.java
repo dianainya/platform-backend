@@ -10,7 +10,7 @@ public record ProductDtoRes
                 Integer proteins,
                 Integer fats,
                 Integer carbohydrates,
-                Double availableWeight
+                Integer weight
         ) {
 
 }

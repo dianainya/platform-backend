@@ -1,6 +1,7 @@
 package sadiva.mpi.platformbackend.repo;
 
 import org.jooq.Field;
+import org.jooq.Record;
 import org.jooq.SelectConditionStep;
 import org.jooq.SelectLimitPercentAfterOffsetStep;
 import org.jooq.SortField;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 
 public interface BasePaginatedRepository {
 
-    default SelectLimitPercentAfterOffsetStep<?> applyPagination(SelectConditionStep<?> records, Pageable pageable, String orderByTableName) {
+    default <T extends Record> SelectLimitPercentAfterOffsetStep<T> applyPagination(SelectConditionStep<T> records, Pageable pageable, String orderByTableName) {
 
         if (!records.isExecutable()) {
             throw new ValidationException("Unable to execute request " + records);
@@ -29,27 +30,11 @@ public interface BasePaginatedRepository {
                 .limit(pageable.getPageSize());
     }
 
-    default SelectLimitPercentAfterOffsetStep<?> applyPaginationWithOrderBy(
-            SelectConditionStep<?> records,
-            Pageable pageable,
-            String orderByTableName,
-            SortField<?> customOrderBy
-    ) {
-        List<SortField<?>> ordered = generateOrderByStatement(pageable, orderByTableName);
-        if (customOrderBy != null) {
-            ordered.add(0, customOrderBy);
-        }
-        return records
-                .orderBy(ordered)
-                .offset((pageable.getPageNumber() - 1) * pageable.getPageSize())
-                .limit(pageable.getPageSize());
-    }
-
 
     private List<SortField<?>> generateOrderByStatement(Pageable pageable, String orderByTableName) {
         return pageable.getSort().stream().map(
                         order -> {
-                            Field<?> field = null;
+                            Field<?> field;
                             if (orderByTableName != null) {
                                 field = DSL.field(orderByTableName + "." + order.getProperty());
                             } else {
@@ -65,7 +50,7 @@ public interface BasePaginatedRepository {
     }
 
 
-    default SelectLimitPercentAfterOffsetStep<?> applyPagination(SelectConditionStep<?> records, Pageable pageable) {
+    default <T extends Record> SelectLimitPercentAfterOffsetStep<T> applyPagination(SelectConditionStep<T> records, Pageable pageable) {
         return applyPagination(records, pageable, null);
     }
 

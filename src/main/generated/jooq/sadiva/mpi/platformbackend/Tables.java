@@ -5,7 +5,7 @@ package jooq.sadiva.mpi.platformbackend;
 
 
 import jooq.sadiva.mpi.platformbackend.tables.Dish;
-import jooq.sadiva.mpi.platformbackend.tables.DishReceipt;
+import jooq.sadiva.mpi.platformbackend.tables.DishIngredients;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformRole;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformUser;
 import jooq.sadiva.mpi.platformbackend.tables.Product;
@@ -13,38 +13,38 @@ import jooq.sadiva.mpi.platformbackend.tables.UserRole;
 
 
 /**
- * Convenience access to all tables in public.
+ * Convenience access to all tables in s283945.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
 
     /**
-     * The table <code>public.dish</code>.
+     * The table <code>s283945.dish</code>.
      */
     public static final Dish DISH = Dish.DISH;
 
     /**
-     * The table <code>public.dish_receipt</code>.
+     * The table <code>s283945.dish_ingredients</code>.
      */
-    public static final DishReceipt DISH_RECEIPT = DishReceipt.DISH_RECEIPT;
+    public static final DishIngredients DISH_INGREDIENTS = DishIngredients.DISH_INGREDIENTS;
 
     /**
-     * The table <code>public.platform_role</code>.
+     * The table <code>s283945.platform_role</code>.
      */
     public static final PlatformRole PLATFORM_ROLE = PlatformRole.PLATFORM_ROLE;
 
     /**
-     * The table <code>public.platform_user</code>.
+     * The table <code>s283945.platform_user</code>.
      */
     public static final PlatformUser PLATFORM_USER = PlatformUser.PLATFORM_USER;
 
     /**
-     * The table <code>public.product</code>.
+     * The table <code>s283945.product</code>.
      */
     public static final Product PRODUCT = Product.PRODUCT;
 
     /**
-     * The table <code>public.user_role</code>.
+     * The table <code>s283945.user_role</code>.
      */
     public static final UserRole USER_ROLE = UserRole.USER_ROLE;
 }

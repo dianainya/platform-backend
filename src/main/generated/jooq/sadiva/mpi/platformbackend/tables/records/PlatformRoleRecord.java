@@ -24,7 +24,7 @@ public class PlatformRoleRecord extends UpdatableRecordImpl<PlatformRoleRecord> 
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>public.platform_role.name</code>.
+     * Setter for <code>s283945.platform_role.name</code>.
      */
     public PlatformRoleRecord setName(String value) {
         set(0, value);
@@ -32,7 +32,7 @@ public class PlatformRoleRecord extends UpdatableRecordImpl<PlatformRoleRecord> 
     }
 
     /**
-     * Getter for <code>public.platform_role.name</code>.
+     * Getter for <code>s283945.platform_role.name</code>.
      */
     @NotNull
     @Size(max = 50)

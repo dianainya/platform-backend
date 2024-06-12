@@ -4,22 +4,23 @@
 package jooq.sadiva.mpi.platformbackend.tables;
 
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
 
 import jooq.sadiva.mpi.platformbackend.Keys;
-import jooq.sadiva.mpi.platformbackend.Public;
+import jooq.sadiva.mpi.platformbackend.S283945;
 import jooq.sadiva.mpi.platformbackend.tables.records.DishRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function3;
+import org.jooq.Function6;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row3;
+import org.jooq.Row6;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -40,7 +41,7 @@ public class Dish extends TableImpl<DishRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>public.dish</code>
+     * The reference instance of <code>s283945.dish</code>
      */
     public static final Dish DISH = new Dish();
 
@@ -53,19 +54,34 @@ public class Dish extends TableImpl<DishRecord> {
     }
 
     /**
-     * The column <code>public.dish.id</code>.
+     * The column <code>s283945.dish.id</code>.
      */
     public final TableField<DishRecord, UUID> ID = createField(DSL.name("id"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field(DSL.raw("gen_random_uuid()"), SQLDataType.UUID)), this, "");
 
     /**
-     * The column <code>public.dish.name</code>.
+     * The column <code>s283945.dish.name</code>.
      */
     public final TableField<DishRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>public.dish.description</code>.
+     * The column <code>s283945.dish.receipt</code>.
+     */
+    public final TableField<DishRecord, String> RECEIPT = createField(DSL.name("receipt"), SQLDataType.CLOB.nullable(false), this, "");
+
+    /**
+     * The column <code>s283945.dish.description</code>.
      */
     public final TableField<DishRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.CLOB, this, "");
+
+    /**
+     * The column <code>s283945.dish.created_at</code>.
+     */
+    public final TableField<DishRecord, LocalDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.LOCALDATETIME)), this, "");
+
+    /**
+     * The column <code>s283945.dish.updated_at</code>.
+     */
+    public final TableField<DishRecord, LocalDateTime> UPDATED_AT = createField(DSL.name("updated_at"), SQLDataType.LOCALDATETIME(6), this, "");
 
     private Dish(Name alias, Table<DishRecord> aliased) {
         this(alias, aliased, null);
@@ -76,21 +92,21 @@ public class Dish extends TableImpl<DishRecord> {
     }
 
     /**
-     * Create an aliased <code>public.dish</code> table reference
+     * Create an aliased <code>s283945.dish</code> table reference
      */
     public Dish(String alias) {
         this(DSL.name(alias), DISH);
     }
 
     /**
-     * Create an aliased <code>public.dish</code> table reference
+     * Create an aliased <code>s283945.dish</code> table reference
      */
     public Dish(Name alias) {
         this(alias, DISH);
     }
 
     /**
-     * Create a <code>public.dish</code> table reference
+     * Create a <code>s283945.dish</code> table reference
      */
     public Dish() {
         this(DSL.name("dish"), null);
@@ -102,7 +118,7 @@ public class Dish extends TableImpl<DishRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Public.PUBLIC;
+        return aliased() ? null : S283945.S283945;
     }
 
     @Override
@@ -155,18 +171,18 @@ public class Dish extends TableImpl<DishRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row3 type methods
+    // Row6 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row3<UUID, String, String> fieldsRow() {
-        return (Row3) super.fieldsRow();
+    public Row6<UUID, String, String, String, LocalDateTime, LocalDateTime> fieldsRow() {
+        return (Row6) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function3<? super UUID, ? super String, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function6<? super UUID, ? super String, ? super String, ? super String, ? super LocalDateTime, ? super LocalDateTime, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -174,7 +190,7 @@ public class Dish extends TableImpl<DishRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function3<? super UUID, ? super String, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function6<? super UUID, ? super String, ? super String, ? super String, ? super LocalDateTime, ? super LocalDateTime, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

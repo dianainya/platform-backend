@@ -3,6 +3,7 @@ package sadiva.mpi.platformbackend.service;
 import jooq.sadiva.mpi.platformbackend.tables.pojos.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import sadiva.mpi.platformbackend.dto.PageResponseDto;
@@ -26,9 +27,10 @@ public class ProductService {
         Product product;
         try {
             product = productRepo.save(productMapper.fromDtoToEntity(productCreateOrUpdateDtoReq));
-        } catch (Exception e) {
-            throw new ValidationException("Product with name " + productCreateOrUpdateDtoReq.name() + " already exists");
+        } catch (DuplicateKeyException e) {
+            throw new ValidationException("Продукт с названием " + productCreateOrUpdateDtoReq.name() + " уже существует");
         }
+
         return productMapper.fromEntityToDto(product);
     }
 
@@ -54,9 +56,4 @@ public class ProductService {
         Product product = productRepo.update(id, productMapper.fromDtoToEntity(productCreateOrUpdateDtoReq));
         return productMapper.fromEntityToDto(product);
     }
-
-//    public ProductDtoRes changeAmount(UUID id, Integer amount) {
-//        Product product = productRepo.changeAmount(id, amount);
-//        return productMapper.fromEntityToDto(product);
-//    }
 }

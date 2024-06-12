@@ -1,4 +1,4 @@
-package sadiva.mpi.platformbackend.controller;
+package sadiva.mpi.platformbackend.controller.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public PageResponseDto<ProductDtoRes> getPaginated(@ParameterObject @ModelAttribute @PageableDefault(page = 1) Pageable pageable) {
+    public PageResponseDto<ProductDtoRes> getPaginated(@ParameterObject @PageableDefault(page = 1) Pageable pageable) {
         return productService.getPaginated(pageable);
     }
 

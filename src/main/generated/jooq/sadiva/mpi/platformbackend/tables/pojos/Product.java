@@ -25,7 +25,7 @@ public class Product implements Serializable {
     private Integer proteins;
     private Integer fats;
     private Integer carbohydrates;
-    private Double availableWeight;
+    private Integer weight;
 
     public Product() {}
 
@@ -36,7 +36,7 @@ public class Product implements Serializable {
         this.proteins = value.proteins;
         this.fats = value.fats;
         this.carbohydrates = value.carbohydrates;
-        this.availableWeight = value.availableWeight;
+        this.weight = value.weight;
     }
 
     public Product(
@@ -46,7 +46,7 @@ public class Product implements Serializable {
         Integer proteins,
         Integer fats,
         Integer carbohydrates,
-        Double availableWeight
+        Integer weight
     ) {
         this.id = id;
         this.name = name;
@@ -54,18 +54,18 @@ public class Product implements Serializable {
         this.proteins = proteins;
         this.fats = fats;
         this.carbohydrates = carbohydrates;
-        this.availableWeight = availableWeight;
+        this.weight = weight;
     }
 
     /**
-     * Getter for <code>public.product.id</code>.
+     * Getter for <code>s283945.product.id</code>.
      */
     public UUID getId() {
         return this.id;
     }
 
     /**
-     * Setter for <code>public.product.id</code>.
+     * Setter for <code>s283945.product.id</code>.
      */
     public Product setId(UUID id) {
         this.id = id;
@@ -73,7 +73,7 @@ public class Product implements Serializable {
     }
 
     /**
-     * Getter for <code>public.product.name</code>.
+     * Getter for <code>s283945.product.name</code>.
      */
     @NotNull
     @Size(max = 255)
@@ -82,7 +82,7 @@ public class Product implements Serializable {
     }
 
     /**
-     * Setter for <code>public.product.name</code>.
+     * Setter for <code>s283945.product.name</code>.
      */
     public Product setName(String name) {
         this.name = name;
@@ -90,7 +90,7 @@ public class Product implements Serializable {
     }
 
     /**
-     * Getter for <code>public.product.calories</code>.
+     * Getter for <code>s283945.product.calories</code>.
      */
     @NotNull
     public Integer getCalories() {
@@ -98,7 +98,7 @@ public class Product implements Serializable {
     }
 
     /**
-     * Setter for <code>public.product.calories</code>.
+     * Setter for <code>s283945.product.calories</code>.
      */
     public Product setCalories(Integer calories) {
         this.calories = calories;
@@ -106,7 +106,7 @@ public class Product implements Serializable {
     }
 
     /**
-     * Getter for <code>public.product.proteins</code>.
+     * Getter for <code>s283945.product.proteins</code>.
      */
     @NotNull
     public Integer getProteins() {
@@ -114,7 +114,7 @@ public class Product implements Serializable {
     }
 
     /**
-     * Setter for <code>public.product.proteins</code>.
+     * Setter for <code>s283945.product.proteins</code>.
      */
     public Product setProteins(Integer proteins) {
         this.proteins = proteins;
@@ -122,7 +122,7 @@ public class Product implements Serializable {
     }
 
     /**
-     * Getter for <code>public.product.fats</code>.
+     * Getter for <code>s283945.product.fats</code>.
      */
     @NotNull
     public Integer getFats() {
@@ -130,7 +130,7 @@ public class Product implements Serializable {
     }
 
     /**
-     * Setter for <code>public.product.fats</code>.
+     * Setter for <code>s283945.product.fats</code>.
      */
     public Product setFats(Integer fats) {
         this.fats = fats;
@@ -138,7 +138,7 @@ public class Product implements Serializable {
     }
 
     /**
-     * Getter for <code>public.product.carbohydrates</code>.
+     * Getter for <code>s283945.product.carbohydrates</code>.
      */
     @NotNull
     public Integer getCarbohydrates() {
@@ -146,7 +146,7 @@ public class Product implements Serializable {
     }
 
     /**
-     * Setter for <code>public.product.carbohydrates</code>.
+     * Setter for <code>s283945.product.carbohydrates</code>.
      */
     public Product setCarbohydrates(Integer carbohydrates) {
         this.carbohydrates = carbohydrates;
@@ -154,17 +154,18 @@ public class Product implements Serializable {
     }
 
     /**
-     * Getter for <code>public.product.available_weight</code>.
+     * Getter for <code>s283945.product.weight</code>.
      */
-    public Double getAvailableWeight() {
-        return this.availableWeight;
+    @NotNull
+    public Integer getWeight() {
+        return this.weight;
     }
 
     /**
-     * Setter for <code>public.product.available_weight</code>.
+     * Setter for <code>s283945.product.weight</code>.
      */
-    public Product setAvailableWeight(Double availableWeight) {
-        this.availableWeight = availableWeight;
+    public Product setWeight(Integer weight) {
+        this.weight = weight;
         return this;
     }
 
@@ -213,11 +214,11 @@ public class Product implements Serializable {
         }
         else if (!this.carbohydrates.equals(other.carbohydrates))
             return false;
-        if (this.availableWeight == null) {
-            if (other.availableWeight != null)
+        if (this.weight == null) {
+            if (other.weight != null)
                 return false;
         }
-        else if (!this.availableWeight.equals(other.availableWeight))
+        else if (!this.weight.equals(other.weight))
             return false;
         return true;
     }
@@ -232,7 +233,7 @@ public class Product implements Serializable {
         result = prime * result + ((this.proteins == null) ? 0 : this.proteins.hashCode());
         result = prime * result + ((this.fats == null) ? 0 : this.fats.hashCode());
         result = prime * result + ((this.carbohydrates == null) ? 0 : this.carbohydrates.hashCode());
-        result = prime * result + ((this.availableWeight == null) ? 0 : this.availableWeight.hashCode());
+        result = prime * result + ((this.weight == null) ? 0 : this.weight.hashCode());
         return result;
     }
 
@@ -246,7 +247,7 @@ public class Product implements Serializable {
         sb.append(", ").append(proteins);
         sb.append(", ").append(fats);
         sb.append(", ").append(carbohydrates);
-        sb.append(", ").append(availableWeight);
+        sb.append(", ").append(weight);
 
         sb.append(")");
         return sb.toString();

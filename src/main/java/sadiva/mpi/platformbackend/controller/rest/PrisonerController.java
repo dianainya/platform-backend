@@ -1,4 +1,4 @@
-package sadiva.mpi.platformbackend.controller;
+package sadiva.mpi.platformbackend.controller.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

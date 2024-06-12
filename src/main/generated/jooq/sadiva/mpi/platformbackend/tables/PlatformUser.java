@@ -10,7 +10,7 @@ import java.util.UUID;
 import java.util.function.Function;
 
 import jooq.sadiva.mpi.platformbackend.Keys;
-import jooq.sadiva.mpi.platformbackend.Public;
+import jooq.sadiva.mpi.platformbackend.S283945;
 import jooq.sadiva.mpi.platformbackend.tables.records.PlatformUserRecord;
 
 import org.jooq.Field;
@@ -40,7 +40,7 @@ public class PlatformUser extends TableImpl<PlatformUserRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>public.platform_user</code>
+     * The reference instance of <code>s283945.platform_user</code>
      */
     public static final PlatformUser PLATFORM_USER = new PlatformUser();
 
@@ -53,22 +53,22 @@ public class PlatformUser extends TableImpl<PlatformUserRecord> {
     }
 
     /**
-     * The column <code>public.platform_user.user_id</code>.
+     * The column <code>s283945.platform_user.user_id</code>.
      */
     public final TableField<PlatformUserRecord, UUID> USER_ID = createField(DSL.name("user_id"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field(DSL.raw("gen_random_uuid()"), SQLDataType.UUID)), this, "");
 
     /**
-     * The column <code>public.platform_user.username</code>.
+     * The column <code>s283945.platform_user.username</code>.
      */
     public final TableField<PlatformUserRecord, String> USERNAME = createField(DSL.name("username"), SQLDataType.VARCHAR(50).nullable(false), this, "");
 
     /**
-     * The column <code>public.platform_user.password</code>.
+     * The column <code>s283945.platform_user.password</code>.
      */
     public final TableField<PlatformUserRecord, String> PASSWORD = createField(DSL.name("password"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
-     * The column <code>public.platform_user.activated</code>.
+     * The column <code>s283945.platform_user.activated</code>.
      */
     public final TableField<PlatformUserRecord, Boolean> ACTIVATED = createField(DSL.name("activated"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
 
@@ -81,21 +81,21 @@ public class PlatformUser extends TableImpl<PlatformUserRecord> {
     }
 
     /**
-     * Create an aliased <code>public.platform_user</code> table reference
+     * Create an aliased <code>s283945.platform_user</code> table reference
      */
     public PlatformUser(String alias) {
         this(DSL.name(alias), PLATFORM_USER);
     }
 
     /**
-     * Create an aliased <code>public.platform_user</code> table reference
+     * Create an aliased <code>s283945.platform_user</code> table reference
      */
     public PlatformUser(Name alias) {
         this(alias, PLATFORM_USER);
     }
 
     /**
-     * Create a <code>public.platform_user</code> table reference
+     * Create a <code>s283945.platform_user</code> table reference
      */
     public PlatformUser() {
         this(DSL.name("platform_user"), null);
@@ -107,7 +107,7 @@ public class PlatformUser extends TableImpl<PlatformUserRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Public.PUBLIC;
+        return aliased() ? null : S283945.S283945;
     }
 
     @Override

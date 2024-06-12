@@ -27,7 +27,7 @@ public class PlatformUserRecord extends UpdatableRecordImpl<PlatformUserRecord> 
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>public.platform_user.user_id</code>.
+     * Setter for <code>s283945.platform_user.user_id</code>.
      */
     public PlatformUserRecord setUserId(UUID value) {
         set(0, value);
@@ -35,14 +35,14 @@ public class PlatformUserRecord extends UpdatableRecordImpl<PlatformUserRecord> 
     }
 
     /**
-     * Getter for <code>public.platform_user.user_id</code>.
+     * Getter for <code>s283945.platform_user.user_id</code>.
      */
     public UUID getUserId() {
         return (UUID) get(0);
     }
 
     /**
-     * Setter for <code>public.platform_user.username</code>.
+     * Setter for <code>s283945.platform_user.username</code>.
      */
     public PlatformUserRecord setUsername(String value) {
         set(1, value);
@@ -50,7 +50,7 @@ public class PlatformUserRecord extends UpdatableRecordImpl<PlatformUserRecord> 
     }
 
     /**
-     * Getter for <code>public.platform_user.username</code>.
+     * Getter for <code>s283945.platform_user.username</code>.
      */
     @NotNull
     @Size(max = 50)
@@ -59,7 +59,7 @@ public class PlatformUserRecord extends UpdatableRecordImpl<PlatformUserRecord> 
     }
 
     /**
-     * Setter for <code>public.platform_user.password</code>.
+     * Setter for <code>s283945.platform_user.password</code>.
      */
     public PlatformUserRecord setPassword(String value) {
         set(2, value);
@@ -67,7 +67,7 @@ public class PlatformUserRecord extends UpdatableRecordImpl<PlatformUserRecord> 
     }
 
     /**
-     * Getter for <code>public.platform_user.password</code>.
+     * Getter for <code>s283945.platform_user.password</code>.
      */
     @NotNull
     @Size(max = 100)
@@ -76,7 +76,7 @@ public class PlatformUserRecord extends UpdatableRecordImpl<PlatformUserRecord> 
     }
 
     /**
-     * Setter for <code>public.platform_user.activated</code>.
+     * Setter for <code>s283945.platform_user.activated</code>.
      */
     public PlatformUserRecord setActivated(Boolean value) {
         set(3, value);
@@ -84,7 +84,7 @@ public class PlatformUserRecord extends UpdatableRecordImpl<PlatformUserRecord> 
     }
 
     /**
-     * Getter for <code>public.platform_user.activated</code>.
+     * Getter for <code>s283945.platform_user.activated</code>.
      */
     public Boolean getActivated() {
         return (Boolean) get(3);

@@ -10,7 +10,7 @@ import java.util.UUID;
 import java.util.function.Function;
 
 import jooq.sadiva.mpi.platformbackend.Keys;
-import jooq.sadiva.mpi.platformbackend.Public;
+import jooq.sadiva.mpi.platformbackend.S283945;
 import jooq.sadiva.mpi.platformbackend.tables.records.UserRoleRecord;
 
 import org.jooq.Field;
@@ -40,7 +40,7 @@ public class UserRole extends TableImpl<UserRoleRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>public.user_role</code>
+     * The reference instance of <code>s283945.user_role</code>
      */
     public static final UserRole USER_ROLE = new UserRole();
 
@@ -53,12 +53,12 @@ public class UserRole extends TableImpl<UserRoleRecord> {
     }
 
     /**
-     * The column <code>public.user_role.user_id</code>.
+     * The column <code>s283945.user_role.user_id</code>.
      */
     public final TableField<UserRoleRecord, UUID> USER_ID = createField(DSL.name("user_id"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
-     * The column <code>public.user_role.role</code>.
+     * The column <code>s283945.user_role.role</code>.
      */
     public final TableField<UserRoleRecord, String> ROLE = createField(DSL.name("role"), SQLDataType.VARCHAR(50).nullable(false), this, "");
 
@@ -71,21 +71,21 @@ public class UserRole extends TableImpl<UserRoleRecord> {
     }
 
     /**
-     * Create an aliased <code>public.user_role</code> table reference
+     * Create an aliased <code>s283945.user_role</code> table reference
      */
     public UserRole(String alias) {
         this(DSL.name(alias), USER_ROLE);
     }
 
     /**
-     * Create an aliased <code>public.user_role</code> table reference
+     * Create an aliased <code>s283945.user_role</code> table reference
      */
     public UserRole(Name alias) {
         this(alias, USER_ROLE);
     }
 
     /**
-     * Create a <code>public.user_role</code> table reference
+     * Create a <code>s283945.user_role</code> table reference
      */
     public UserRole() {
         this(DSL.name("user_role"), null);
@@ -97,7 +97,7 @@ public class UserRole extends TableImpl<UserRoleRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Public.PUBLIC;
+        return aliased() ? null : S283945.S283945;
     }
 
     @Override
@@ -114,7 +114,7 @@ public class UserRole extends TableImpl<UserRoleRecord> {
     private transient PlatformRole _platformRole;
 
     /**
-     * Get the implicit join path to the <code>public.platform_user</code>
+     * Get the implicit join path to the <code>s283945.platform_user</code>
      * table.
      */
     public PlatformUser platformUser() {
@@ -125,7 +125,7 @@ public class UserRole extends TableImpl<UserRoleRecord> {
     }
 
     /**
-     * Get the implicit join path to the <code>public.platform_role</code>
+     * Get the implicit join path to the <code>s283945.platform_role</code>
      * table.
      */
     public PlatformRole platformRole() {

@@ -1,23 +1,34 @@
 package sadiva.mpi.platformbackend.dto.product;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public record ProductCreateOrUpdateDtoReq(
+        @NotNull
+        @NotBlank
         @Schema(description = "Наименование продукта")
         String name,
+
+        @NotNull
         @Schema(description = "Калории")
-        Integer calories,
+        @NotNull
+        int calories,
+
         @Schema(description = "Белки")
-        Integer proteins,
+        @NotNull
+        int proteins,
+
         @Schema(description = "Жиры")
-        Integer fats,
+        @NotNull
+        int fats,
+
         @Schema(description = "Углеводы")
-        Integer carbohydrates,
+        @NotNull
+        int carbohydrates,
+
+        @NotNull
         @Schema(description = "Вес")
-        Float weight,
-        @Schema(description = "Количество")
-        Integer amount
+        int weight
 ) {
 }

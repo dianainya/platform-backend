@@ -26,7 +26,7 @@ public class UserRoleRecord extends UpdatableRecordImpl<UserRoleRecord> implemen
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>public.user_role.user_id</code>.
+     * Setter for <code>s283945.user_role.user_id</code>.
      */
     public UserRoleRecord setUserId(UUID value) {
         set(0, value);
@@ -34,7 +34,7 @@ public class UserRoleRecord extends UpdatableRecordImpl<UserRoleRecord> implemen
     }
 
     /**
-     * Getter for <code>public.user_role.user_id</code>.
+     * Getter for <code>s283945.user_role.user_id</code>.
      */
     @NotNull
     public UUID getUserId() {
@@ -42,7 +42,7 @@ public class UserRoleRecord extends UpdatableRecordImpl<UserRoleRecord> implemen
     }
 
     /**
-     * Setter for <code>public.user_role.role</code>.
+     * Setter for <code>s283945.user_role.role</code>.
      */
     public UserRoleRecord setRole(String value) {
         set(1, value);
@@ -50,7 +50,7 @@ public class UserRoleRecord extends UpdatableRecordImpl<UserRoleRecord> implemen
     }
 
     /**
-     * Getter for <code>public.user_role.role</code>.
+     * Getter for <code>s283945.user_role.role</code>.
      */
     @NotNull
     @Size(max = 50)

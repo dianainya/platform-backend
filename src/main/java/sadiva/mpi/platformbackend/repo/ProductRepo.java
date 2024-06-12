@@ -24,7 +24,7 @@ public class ProductRepo implements BasePaginatedRepository {
                 .set(PRODUCT.PROTEINS, product.getProteins())
                 .set(PRODUCT.FATS, product.getFats())
                 .set(PRODUCT.CARBOHYDRATES, product.getCarbohydrates())
-                .set(PRODUCT.AVAILABLE_WEIGHT, product.getAvailableWeight())
+                .set(PRODUCT.WEIGHT, product.getWeight())
                 .returning()
                 .fetchOneInto(Product.class);
     }
@@ -55,7 +55,7 @@ public class ProductRepo implements BasePaginatedRepository {
                 .set(PRODUCT.PROTEINS, product.getProteins())
                 .set(PRODUCT.FATS, product.getFats())
                 .set(PRODUCT.CARBOHYDRATES, product.getCarbohydrates())
-                .set(PRODUCT.AVAILABLE_WEIGHT, product.getAvailableWeight())
+                .set(PRODUCT.WEIGHT, product.getWeight())
                 .where(PRODUCT.ID.eq(id))
                 .returning()
                 .fetchOneInto(Product.class);

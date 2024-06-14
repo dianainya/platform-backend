@@ -11,6 +11,7 @@ import jooq.sadiva.mpi.platformbackend.tables.Dish;
 import jooq.sadiva.mpi.platformbackend.tables.DishIngredients;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformRole;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformUser;
+import jooq.sadiva.mpi.platformbackend.tables.Prisoner;
 import jooq.sadiva.mpi.platformbackend.tables.Product;
 import jooq.sadiva.mpi.platformbackend.tables.UserRole;
 
@@ -53,6 +54,11 @@ public class S283945 extends SchemaImpl {
     public final PlatformUser PLATFORM_USER = PlatformUser.PLATFORM_USER;
 
     /**
+     * The table <code>s283945.prisoner</code>.
+     */
+    public final Prisoner PRISONER = Prisoner.PRISONER;
+
+    /**
      * The table <code>s283945.product</code>.
      */
     public final Product PRODUCT = Product.PRODUCT;
@@ -82,6 +88,7 @@ public class S283945 extends SchemaImpl {
             DishIngredients.DISH_INGREDIENTS,
             PlatformRole.PLATFORM_ROLE,
             PlatformUser.PLATFORM_USER,
+            Prisoner.PRISONER,
             Product.PRODUCT,
             UserRole.USER_ROLE
         );

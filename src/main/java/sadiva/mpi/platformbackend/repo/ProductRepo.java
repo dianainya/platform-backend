@@ -60,12 +60,4 @@ public class ProductRepo implements BasePaginatedRepository {
                 .returning()
                 .fetchOneInto(Product.class);
     }
-
-//    public Product changeAmount(UUID id, Integer amount) {
-//        return dslContext.update(PRODUCT)
-//                .set(PRODUCT.A, PRODUCT.AVAILABLE_WEIGHT.add(amount))
-//                .where(PRODUCT.ID.eq(id))
-//                .returning()
-//                .fetchOneInto(Product.class);
-//    }
 }

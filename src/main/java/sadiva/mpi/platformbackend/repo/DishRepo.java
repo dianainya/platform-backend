@@ -38,8 +38,7 @@ public class DishRepo implements BasePaginatedRepository {
                 .set(DISH.RECEIPT, dish.receipt())
                 .onConflict(DISH.NAME).doNothing()
                 .returningResult(DISH.ID)
-                .fetchOne()
-                .getValue(DISH.ID, UUID.class);
+                .fetchOneInto(UUID.class);
         if (dishId == null) {
             return null;
         }
@@ -86,6 +85,10 @@ public class DishRepo implements BasePaginatedRepository {
         insertIngredients(id, ingredients);
 
         return updatedDish.getId();
+    }
+
+    public boolean isExist(UUID id) {
+        return dslContext.selectCount().from(DISH).where(DISH.ID.eq(id)).execute() == 1;
     }
 
     private @NotNull SelectConditionStep<Record2<Dish, Result<Record2<Integer, Product>>>> getSelectStep() {

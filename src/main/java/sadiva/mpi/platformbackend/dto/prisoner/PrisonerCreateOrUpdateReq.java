@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public record PrisonerReq(
+public record PrisonerCreateOrUpdateReq(
         @NotNull
         @NotBlank
         String lastName,
@@ -20,12 +20,10 @@ public record PrisonerReq(
         @NotBlank
         String passport,
         @NotNull
-        Float height,
-        @NotNull
         Float weight,
         @NotNull
-        LocalDate birthDay,
+        LocalDate birthDate,
         @NotNull
-        UUID favoriteDishId
+        UUID favoriteDish
 ) {
 }

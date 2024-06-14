@@ -1,20 +1,52 @@
 package sadiva.mpi.platformbackend.controller.rest;
 
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import sadiva.mpi.platformbackend.dto.prisoner.PrisonerReq;
+import sadiva.mpi.platformbackend.dto.PageResponseDto;
+import sadiva.mpi.platformbackend.dto.prisoner.PrisonerCreateOrUpdateReq;
+import sadiva.mpi.platformbackend.dto.prisoner.PrisonerFilterParam;
+import sadiva.mpi.platformbackend.dto.prisoner.PrisonerRes;
+import sadiva.mpi.platformbackend.service.PrisonerService;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/prisoners")
 @RequiredArgsConstructor
 //@PreAuthorize("hasAnyAuthority('admin, prisoner_register')")
 public class PrisonerController {
+    private final PrisonerService prisonerService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void registerPrisoner(@RequestBody PrisonerReq prisonerReq) {
+    public PrisonerRes registerPrisoner(@RequestBody PrisonerCreateOrUpdateReq prisonerCreateOrUpdateReq) {
+        return prisonerService.save(prisonerCreateOrUpdateReq);
+    }
 
+    @GetMapping("/{id}")
+    public PrisonerRes getById(@PathVariable UUID id) {
+        return prisonerService.getById(id);
+    }
+
+    @GetMapping
+    public PageResponseDto<PrisonerRes> getPaginated(@PageableDefault(page = 1) @ParameterObject Pageable pageable,
+                                                     @ModelAttribute @ParameterObject PrisonerFilterParam filterParam) {
+        return prisonerService.getPaginated(pageable, filterParam);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable UUID id) {
+        prisonerService.deleteById(id);
+
+    }
+
+    @PutMapping("/{id}")
+    public PrisonerRes update(@PathVariable UUID id, @RequestBody PrisonerCreateOrUpdateReq dto) {
+        return prisonerService.update(id, dto);
     }
 
 }

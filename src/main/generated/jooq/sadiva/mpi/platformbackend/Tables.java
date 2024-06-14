@@ -8,6 +8,7 @@ import jooq.sadiva.mpi.platformbackend.tables.Dish;
 import jooq.sadiva.mpi.platformbackend.tables.DishIngredients;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformRole;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformUser;
+import jooq.sadiva.mpi.platformbackend.tables.Prisoner;
 import jooq.sadiva.mpi.platformbackend.tables.Product;
 import jooq.sadiva.mpi.platformbackend.tables.UserRole;
 
@@ -37,6 +38,11 @@ public class Tables {
      * The table <code>s283945.platform_user</code>.
      */
     public static final PlatformUser PLATFORM_USER = PlatformUser.PLATFORM_USER;
+
+    /**
+     * The table <code>s283945.prisoner</code>.
+     */
+    public static final Prisoner PRISONER = Prisoner.PRISONER;
 
     /**
      * The table <code>s283945.product</code>.

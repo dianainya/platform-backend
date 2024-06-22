@@ -1,0 +1,40 @@
+package sadiva.mpi.platformbackend.controller.rest;
+
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import sadiva.mpi.platformbackend.dto.bars.BarsAddScoreReq;
+import sadiva.mpi.platformbackend.dto.bars.BarsSubtractScoreReq;
+import sadiva.mpi.platformbackend.dto.bars.ViolationRes;
+import sadiva.mpi.platformbackend.service.BarsService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("api/v1/bars")
+@RequiredArgsConstructor
+//@PreAuthorize("hasAnyAuthority('admin, prisoner_register')")
+public class BarsController {
+    private final BarsService barsService;
+
+    @GetMapping("/violations")
+    @Operation(description = "Получение возможных нарушений правил заключенным")
+    public List<ViolationRes> getAllViolations() {
+        return barsService.getAllViolations();
+    }
+
+    @PostMapping("/add")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(description = "Начислить баллы заключенному")
+    public void addScore(@RequestBody BarsAddScoreReq req) {
+        barsService.addScore(req);
+    }
+
+    @PostMapping("/subtract")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(description = "Начислить баллы заключенному")
+    public void subtractScore(@RequestBody BarsSubtractScoreReq req) {
+        barsService.subtractScore(req);
+    }
+}

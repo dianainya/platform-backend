@@ -1,5 +1,6 @@
 package sadiva.mpi.platformbackend.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -11,6 +12,7 @@ public record PrisonerEntity(
         String passport,
         Double weight,
         LocalDate birthDate,
-        DishShortEntity favoriteDish
+        DishShortEntity favoriteDish,
+        BigDecimal rating
 ) {
 }

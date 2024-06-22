@@ -2,6 +2,7 @@ package sadiva.mpi.platformbackend.dto.prisoner;
 
 import sadiva.mpi.platformbackend.dto.dish.DishShortDtoRes;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -12,6 +13,7 @@ public record PrisonerRes(
         String patronymic,
         Float weight,
         LocalDate birthDate,
-        DishShortDtoRes favoriteDish
+        DishShortDtoRes favoriteDish,
+        BigDecimal rating
 ) {
 }

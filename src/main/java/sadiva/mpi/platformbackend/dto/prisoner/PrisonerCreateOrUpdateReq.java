@@ -1,7 +1,6 @@
 package sadiva.mpi.platformbackend.dto.prisoner;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -18,8 +17,11 @@ public record PrisonerCreateOrUpdateReq(
         String patronymic,
         @NotNull
         @NotBlank
+        @Pattern(regexp = "^[0-9 ]+$", message = "Паспорт может содержать только цифры и пробелы")
         String passport,
         @NotNull
+        @Min(value = 40, message = "Люди весом менее 40кг не могут попасть в платформу")
+        @Max(value = 180, message = "Люди весом более 180кг не могут попасть в платформу")
         Float weight,
         @NotNull
         LocalDate birthDate,

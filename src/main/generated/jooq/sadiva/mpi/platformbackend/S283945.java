@@ -9,9 +9,12 @@ import java.util.List;
 
 import jooq.sadiva.mpi.platformbackend.tables.Dish;
 import jooq.sadiva.mpi.platformbackend.tables.DishIngredients;
+import jooq.sadiva.mpi.platformbackend.tables.PlatformPrisoner;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformRole;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformUser;
 import jooq.sadiva.mpi.platformbackend.tables.Prisoner;
+import jooq.sadiva.mpi.platformbackend.tables.PrisonerRating;
+import jooq.sadiva.mpi.platformbackend.tables.PrisonerViolation;
 import jooq.sadiva.mpi.platformbackend.tables.Product;
 import jooq.sadiva.mpi.platformbackend.tables.UserRole;
 
@@ -44,6 +47,11 @@ public class S283945 extends SchemaImpl {
     public final DishIngredients DISH_INGREDIENTS = DishIngredients.DISH_INGREDIENTS;
 
     /**
+     * The table <code>s283945.platform_prisoner</code>.
+     */
+    public final PlatformPrisoner PLATFORM_PRISONER = PlatformPrisoner.PLATFORM_PRISONER;
+
+    /**
      * The table <code>s283945.platform_role</code>.
      */
     public final PlatformRole PLATFORM_ROLE = PlatformRole.PLATFORM_ROLE;
@@ -57,6 +65,16 @@ public class S283945 extends SchemaImpl {
      * The table <code>s283945.prisoner</code>.
      */
     public final Prisoner PRISONER = Prisoner.PRISONER;
+
+    /**
+     * The table <code>s283945.prisoner_rating</code>.
+     */
+    public final PrisonerRating PRISONER_RATING = PrisonerRating.PRISONER_RATING;
+
+    /**
+     * The table <code>s283945.prisoner_violation</code>.
+     */
+    public final PrisonerViolation PRISONER_VIOLATION = PrisonerViolation.PRISONER_VIOLATION;
 
     /**
      * The table <code>s283945.product</code>.
@@ -86,9 +104,12 @@ public class S283945 extends SchemaImpl {
         return Arrays.asList(
             Dish.DISH,
             DishIngredients.DISH_INGREDIENTS,
+            PlatformPrisoner.PLATFORM_PRISONER,
             PlatformRole.PLATFORM_ROLE,
             PlatformUser.PLATFORM_USER,
             Prisoner.PRISONER,
+            PrisonerRating.PRISONER_RATING,
+            PrisonerViolation.PRISONER_VIOLATION,
             Product.PRODUCT,
             UserRole.USER_ROLE
         );

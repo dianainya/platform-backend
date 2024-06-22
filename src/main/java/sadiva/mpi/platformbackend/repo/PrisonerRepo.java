@@ -1,6 +1,7 @@
 package sadiva.mpi.platformbackend.repo;
 
 import jooq.sadiva.mpi.platformbackend.tables.pojos.Prisoner;
+import jooq.sadiva.mpi.platformbackend.tables.pojos.PrisonerRating;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jooq.Record;
@@ -17,8 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import static jooq.sadiva.mpi.platformbackend.Tables.DISH;
-import static jooq.sadiva.mpi.platformbackend.Tables.PRISONER;
+import static jooq.sadiva.mpi.platformbackend.Tables.*;
 import static org.jooq.impl.DSL.row;
 
 @Repository
@@ -91,17 +91,19 @@ public class PrisonerRepo implements BasePaginatedRepository {
         return query;
     }
 
-    private @NotNull SelectConditionStep<Record2<Prisoner, DishShortEntity>> getSelectStep() {
+    private @NotNull SelectConditionStep<Record3<Prisoner, DishShortEntity, PrisonerRating>> getSelectStep() {
         return dslContext.select(
                         PRISONER.mapping(Prisoner::new),
-                        row(DISH.ID, DISH.NAME).mapping(DishShortEntity::new)
+                        row(DISH.ID, DISH.NAME).mapping(DishShortEntity::new),
+                        PRISONER_RATING.mapping(PrisonerRating::new)
                 )
                 .from(PRISONER)
                 .leftJoin(DISH).on(PRISONER.FAVORITE_DISH.eq(DISH.ID))
+                .leftJoin(PRISONER_RATING).on(PRISONER.ID.eq(PRISONER_RATING.PRISONER_ID))
                 .where();
     }
 
-    private PrisonerEntity mapPrisonerEntity(Record2<Prisoner, DishShortEntity> r) {
+    private PrisonerEntity mapPrisonerEntity(Record3<Prisoner, DishShortEntity, PrisonerRating> r) {
         return new PrisonerEntity(
                 r.component1().getId(),
                 r.component1().getLastName(),
@@ -110,7 +112,8 @@ public class PrisonerRepo implements BasePaginatedRepository {
                 r.component1().getPassport(),
                 r.component1().getWeight(),
                 r.component1().getBirthDate(),
-                r.component2()
+                r.component2(),
+                r.component3().getScore()
         );
     }
 }

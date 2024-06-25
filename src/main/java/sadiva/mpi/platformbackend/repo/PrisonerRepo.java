@@ -45,6 +45,12 @@ public class PrisonerRepo implements BasePaginatedRepository {
                 .fetchOne(this::mapPrisonerEntity);
     }
 
+    public List<PrisonerEntity> getAllPrisonerOrderByRating() {
+        return getSelectStep()
+                .orderBy(PRISONER_RATING.SCORE)
+                .fetch(this::mapPrisonerEntity);
+    }
+
     public PageEntity<PrisonerEntity> getAllPaginated(Pageable pageable, PrisonerFilterParam filterParam) {
         var select = getSelectStep();
         var count = dslContext.selectCount().from(PRISONER).where();

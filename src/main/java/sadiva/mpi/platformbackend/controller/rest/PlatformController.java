@@ -2,11 +2,13 @@ package sadiva.mpi.platformbackend.controller.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import sadiva.mpi.platformbackend.dto.PageResponseDto;
+import sadiva.mpi.platformbackend.dto.platform.PlatformStructureRes;
 import sadiva.mpi.platformbackend.service.PlatformService;
 
 @RestController
@@ -21,5 +23,11 @@ public class PlatformController {
     @Operation(description = "Распределить заключенных по этажам согласно БАРС")
     public void distributePrisoners() {
         platformService.distributePrisoners();
+    }
+
+    @GetMapping
+    @Operation(description = "Получение структуры платформы")
+    public PageResponseDto<PlatformStructureRes> getPlatformStructure(@ParameterObject @PageableDefault(page = 1) Pageable pageable) {
+        return platformService.getPlatformStructure(pageable);
     }
 }

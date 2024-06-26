@@ -13,3 +13,6 @@ server:
 
 jwt:
   secret: ${JWT_SECRET:oooCHINAZESoooCHINAZESoooCHINAZESoooCHINAZESoooCHINAZESoooCHINAZES}
+
+cron:
+  distribute-person: ${DISTRIBUTE_PERSON_CRON:0 0 0 1 * *} # каждый месяц

@@ -47,7 +47,7 @@ public class PrisonerRepo implements BasePaginatedRepository {
 
     public List<PrisonerEntity> getAllPrisonerOrderByRating() {
         return getSelectStep()
-                .orderBy(PRISONER_RATING.SCORE)
+                .orderBy(PRISONER_RATING.SCORE.desc())
                 .fetch(this::mapPrisonerEntity);
     }
 

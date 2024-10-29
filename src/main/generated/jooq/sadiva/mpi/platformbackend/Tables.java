@@ -6,6 +6,8 @@ package jooq.sadiva.mpi.platformbackend;
 
 import jooq.sadiva.mpi.platformbackend.tables.Dish;
 import jooq.sadiva.mpi.platformbackend.tables.DishIngredients;
+import jooq.sadiva.mpi.platformbackend.tables.Platform;
+import jooq.sadiva.mpi.platformbackend.tables.PlatformHistory;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformPrisoner;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformRole;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformUser;
@@ -13,6 +15,7 @@ import jooq.sadiva.mpi.platformbackend.tables.Prisoner;
 import jooq.sadiva.mpi.platformbackend.tables.PrisonerRating;
 import jooq.sadiva.mpi.platformbackend.tables.PrisonerViolation;
 import jooq.sadiva.mpi.platformbackend.tables.Product;
+import jooq.sadiva.mpi.platformbackend.tables.ProductWarehouse;
 import jooq.sadiva.mpi.platformbackend.tables.UserRole;
 
 
@@ -31,6 +34,16 @@ public class Tables {
      * The table <code>s283945.dish_ingredients</code>.
      */
     public static final DishIngredients DISH_INGREDIENTS = DishIngredients.DISH_INGREDIENTS;
+
+    /**
+     * The table <code>s283945.platform</code>.
+     */
+    public static final Platform PLATFORM = Platform.PLATFORM;
+
+    /**
+     * The table <code>s283945.platform_history</code>.
+     */
+    public static final PlatformHistory PLATFORM_HISTORY = PlatformHistory.PLATFORM_HISTORY;
 
     /**
      * The table <code>s283945.platform_prisoner</code>.
@@ -66,6 +79,11 @@ public class Tables {
      * The table <code>s283945.product</code>.
      */
     public static final Product PRODUCT = Product.PRODUCT;
+
+    /**
+     * The table <code>s283945.product_warehouse</code>.
+     */
+    public static final ProductWarehouse PRODUCT_WAREHOUSE = ProductWarehouse.PRODUCT_WAREHOUSE;
 
     /**
      * The table <code>s283945.user_role</code>.

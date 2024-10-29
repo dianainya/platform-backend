@@ -9,6 +9,8 @@ import java.util.List;
 
 import jooq.sadiva.mpi.platformbackend.tables.Dish;
 import jooq.sadiva.mpi.platformbackend.tables.DishIngredients;
+import jooq.sadiva.mpi.platformbackend.tables.Platform;
+import jooq.sadiva.mpi.platformbackend.tables.PlatformHistory;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformPrisoner;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformRole;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformUser;
@@ -16,6 +18,7 @@ import jooq.sadiva.mpi.platformbackend.tables.Prisoner;
 import jooq.sadiva.mpi.platformbackend.tables.PrisonerRating;
 import jooq.sadiva.mpi.platformbackend.tables.PrisonerViolation;
 import jooq.sadiva.mpi.platformbackend.tables.Product;
+import jooq.sadiva.mpi.platformbackend.tables.ProductWarehouse;
 import jooq.sadiva.mpi.platformbackend.tables.UserRole;
 
 import org.jooq.Catalog;
@@ -45,6 +48,16 @@ public class S283945 extends SchemaImpl {
      * The table <code>s283945.dish_ingredients</code>.
      */
     public final DishIngredients DISH_INGREDIENTS = DishIngredients.DISH_INGREDIENTS;
+
+    /**
+     * The table <code>s283945.platform</code>.
+     */
+    public final Platform PLATFORM = Platform.PLATFORM;
+
+    /**
+     * The table <code>s283945.platform_history</code>.
+     */
+    public final PlatformHistory PLATFORM_HISTORY = PlatformHistory.PLATFORM_HISTORY;
 
     /**
      * The table <code>s283945.platform_prisoner</code>.
@@ -82,6 +95,11 @@ public class S283945 extends SchemaImpl {
     public final Product PRODUCT = Product.PRODUCT;
 
     /**
+     * The table <code>s283945.product_warehouse</code>.
+     */
+    public final ProductWarehouse PRODUCT_WAREHOUSE = ProductWarehouse.PRODUCT_WAREHOUSE;
+
+    /**
      * The table <code>s283945.user_role</code>.
      */
     public final UserRole USER_ROLE = UserRole.USER_ROLE;
@@ -104,6 +122,8 @@ public class S283945 extends SchemaImpl {
         return Arrays.asList(
             Dish.DISH,
             DishIngredients.DISH_INGREDIENTS,
+            Platform.PLATFORM,
+            PlatformHistory.PLATFORM_HISTORY,
             PlatformPrisoner.PLATFORM_PRISONER,
             PlatformRole.PLATFORM_ROLE,
             PlatformUser.PLATFORM_USER,
@@ -111,6 +131,7 @@ public class S283945 extends SchemaImpl {
             PrisonerRating.PRISONER_RATING,
             PrisonerViolation.PRISONER_VIOLATION,
             Product.PRODUCT,
+            ProductWarehouse.PRODUCT_WAREHOUSE,
             UserRole.USER_ROLE
         );
     }

@@ -6,6 +6,8 @@ package jooq.sadiva.mpi.platformbackend;
 
 import jooq.sadiva.mpi.platformbackend.tables.Dish;
 import jooq.sadiva.mpi.platformbackend.tables.DishIngredients;
+import jooq.sadiva.mpi.platformbackend.tables.Platform;
+import jooq.sadiva.mpi.platformbackend.tables.PlatformHistory;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformPrisoner;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformRole;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformUser;
@@ -13,16 +15,20 @@ import jooq.sadiva.mpi.platformbackend.tables.Prisoner;
 import jooq.sadiva.mpi.platformbackend.tables.PrisonerRating;
 import jooq.sadiva.mpi.platformbackend.tables.PrisonerViolation;
 import jooq.sadiva.mpi.platformbackend.tables.Product;
+import jooq.sadiva.mpi.platformbackend.tables.ProductWarehouse;
 import jooq.sadiva.mpi.platformbackend.tables.UserRole;
 import jooq.sadiva.mpi.platformbackend.tables.records.DishIngredientsRecord;
 import jooq.sadiva.mpi.platformbackend.tables.records.DishRecord;
+import jooq.sadiva.mpi.platformbackend.tables.records.PlatformHistoryRecord;
 import jooq.sadiva.mpi.platformbackend.tables.records.PlatformPrisonerRecord;
+import jooq.sadiva.mpi.platformbackend.tables.records.PlatformRecord;
 import jooq.sadiva.mpi.platformbackend.tables.records.PlatformRoleRecord;
 import jooq.sadiva.mpi.platformbackend.tables.records.PlatformUserRecord;
 import jooq.sadiva.mpi.platformbackend.tables.records.PrisonerRatingRecord;
 import jooq.sadiva.mpi.platformbackend.tables.records.PrisonerRecord;
 import jooq.sadiva.mpi.platformbackend.tables.records.PrisonerViolationRecord;
 import jooq.sadiva.mpi.platformbackend.tables.records.ProductRecord;
+import jooq.sadiva.mpi.platformbackend.tables.records.ProductWarehouseRecord;
 import jooq.sadiva.mpi.platformbackend.tables.records.UserRoleRecord;
 
 import org.jooq.ForeignKey;
@@ -46,6 +52,9 @@ public class Keys {
     public static final UniqueKey<DishRecord> DISH_NAME_KEY = Internal.createUniqueKey(Dish.DISH, DSL.name("dish_name_key"), new TableField[] { Dish.DISH.NAME }, true);
     public static final UniqueKey<DishRecord> DISH_PKEY = Internal.createUniqueKey(Dish.DISH, DSL.name("dish_pkey"), new TableField[] { Dish.DISH.ID }, true);
     public static final UniqueKey<DishIngredientsRecord> DISH_INGREDIENTS_PKEY = Internal.createUniqueKey(DishIngredients.DISH_INGREDIENTS, DSL.name("dish_ingredients_pkey"), new TableField[] { DishIngredients.DISH_INGREDIENTS.PRODUCT_ID, DishIngredients.DISH_INGREDIENTS.DISH_ID }, true);
+    public static final UniqueKey<PlatformRecord> PLATFORM_CODE_KEY = Internal.createUniqueKey(Platform.PLATFORM, DSL.name("platform_code_key"), new TableField[] { Platform.PLATFORM.CODE }, true);
+    public static final UniqueKey<PlatformRecord> PLATFORM_PKEY = Internal.createUniqueKey(Platform.PLATFORM, DSL.name("platform_pkey"), new TableField[] { Platform.PLATFORM.ID }, true);
+    public static final UniqueKey<PlatformHistoryRecord> PLATFORM_HISTORY_PKEY = Internal.createUniqueKey(PlatformHistory.PLATFORM_HISTORY, DSL.name("platform_history_pkey"), new TableField[] { PlatformHistory.PLATFORM_HISTORY.FLOOR }, true);
     public static final UniqueKey<PlatformPrisonerRecord> PLATFORM_PRISONER_PKEY = Internal.createUniqueKey(PlatformPrisoner.PLATFORM_PRISONER, DSL.name("platform_prisoner_pkey"), new TableField[] { PlatformPrisoner.PLATFORM_PRISONER.FLOOR }, true);
     public static final UniqueKey<PlatformRoleRecord> PLATFORM_ROLE_PKEY = Internal.createUniqueKey(PlatformRole.PLATFORM_ROLE, DSL.name("platform_role_pkey"), new TableField[] { PlatformRole.PLATFORM_ROLE.NAME }, true);
     public static final UniqueKey<PlatformUserRecord> PLATFORM_USER_PKEY = Internal.createUniqueKey(PlatformUser.PLATFORM_USER, DSL.name("platform_user_pkey"), new TableField[] { PlatformUser.PLATFORM_USER.USER_ID }, true);
@@ -63,10 +72,14 @@ public class Keys {
 
     public static final ForeignKey<DishIngredientsRecord, DishRecord> DISH_INGREDIENTS__DISH_INGREDIENTS_DISH_ID_FKEY = Internal.createForeignKey(DishIngredients.DISH_INGREDIENTS, DSL.name("dish_ingredients_dish_id_fkey"), new TableField[] { DishIngredients.DISH_INGREDIENTS.DISH_ID }, Keys.DISH_PKEY, new TableField[] { Dish.DISH.ID }, true);
     public static final ForeignKey<DishIngredientsRecord, ProductRecord> DISH_INGREDIENTS__DISH_INGREDIENTS_PRODUCT_ID_FKEY = Internal.createForeignKey(DishIngredients.DISH_INGREDIENTS, DSL.name("dish_ingredients_product_id_fkey"), new TableField[] { DishIngredients.DISH_INGREDIENTS.PRODUCT_ID }, Keys.PRODUCT_PKEY, new TableField[] { Product.PRODUCT.ID }, true);
+    public static final ForeignKey<PlatformHistoryRecord, PrisonerRecord> PLATFORM_HISTORY__PLATFORM_HISTORY_FIRST_PRISONER_FKEY = Internal.createForeignKey(PlatformHistory.PLATFORM_HISTORY, DSL.name("platform_history_first_prisoner_fkey"), new TableField[] { PlatformHistory.PLATFORM_HISTORY.FIRST_PRISONER }, Keys.PRISONER_PKEY, new TableField[] { Prisoner.PRISONER.ID }, true);
+    public static final ForeignKey<PlatformHistoryRecord, PlatformRecord> PLATFORM_HISTORY__PLATFORM_HISTORY_PLATFORM_ID_FKEY = Internal.createForeignKey(PlatformHistory.PLATFORM_HISTORY, DSL.name("platform_history_platform_id_fkey"), new TableField[] { PlatformHistory.PLATFORM_HISTORY.PLATFORM_ID }, Keys.PLATFORM_PKEY, new TableField[] { Platform.PLATFORM.ID }, true);
+    public static final ForeignKey<PlatformHistoryRecord, PrisonerRecord> PLATFORM_HISTORY__PLATFORM_HISTORY_SECOND_PRISONER_FKEY = Internal.createForeignKey(PlatformHistory.PLATFORM_HISTORY, DSL.name("platform_history_second_prisoner_fkey"), new TableField[] { PlatformHistory.PLATFORM_HISTORY.SECOND_PRISONER }, Keys.PRISONER_PKEY, new TableField[] { Prisoner.PRISONER.ID }, true);
     public static final ForeignKey<PlatformPrisonerRecord, PrisonerRecord> PLATFORM_PRISONER__PLATFORM_PRISONER_FIRST_PRISONER_FKEY = Internal.createForeignKey(PlatformPrisoner.PLATFORM_PRISONER, DSL.name("platform_prisoner_first_prisoner_fkey"), new TableField[] { PlatformPrisoner.PLATFORM_PRISONER.FIRST_PRISONER }, Keys.PRISONER_PKEY, new TableField[] { Prisoner.PRISONER.ID }, true);
     public static final ForeignKey<PlatformPrisonerRecord, PrisonerRecord> PLATFORM_PRISONER__PLATFORM_PRISONER_SECOND_PRISONER_FKEY = Internal.createForeignKey(PlatformPrisoner.PLATFORM_PRISONER, DSL.name("platform_prisoner_second_prisoner_fkey"), new TableField[] { PlatformPrisoner.PLATFORM_PRISONER.SECOND_PRISONER }, Keys.PRISONER_PKEY, new TableField[] { Prisoner.PRISONER.ID }, true);
     public static final ForeignKey<PrisonerRecord, DishRecord> PRISONER__PRISONER_FAVORITE_DISH_FKEY = Internal.createForeignKey(Prisoner.PRISONER, DSL.name("prisoner_favorite_dish_fkey"), new TableField[] { Prisoner.PRISONER.FAVORITE_DISH }, Keys.DISH_PKEY, new TableField[] { Dish.DISH.ID }, true);
     public static final ForeignKey<PrisonerRatingRecord, PrisonerRecord> PRISONER_RATING__PRISONER_RATING_PRISONER_ID_FKEY = Internal.createForeignKey(PrisonerRating.PRISONER_RATING, DSL.name("prisoner_rating_prisoner_id_fkey"), new TableField[] { PrisonerRating.PRISONER_RATING.PRISONER_ID }, Keys.PRISONER_PKEY, new TableField[] { Prisoner.PRISONER.ID }, true);
+    public static final ForeignKey<ProductWarehouseRecord, ProductRecord> PRODUCT_WAREHOUSE__PRODUCT_WAREHOUSE_PRODUCT_ID_FKEY = Internal.createForeignKey(ProductWarehouse.PRODUCT_WAREHOUSE, DSL.name("product_warehouse_product_id_fkey"), new TableField[] { ProductWarehouse.PRODUCT_WAREHOUSE.PRODUCT_ID }, Keys.PRODUCT_PKEY, new TableField[] { Product.PRODUCT.ID }, true);
     public static final ForeignKey<UserRoleRecord, PlatformRoleRecord> USER_ROLE__USER_ROLE_ROLE_FKEY = Internal.createForeignKey(UserRole.USER_ROLE, DSL.name("user_role_role_fkey"), new TableField[] { UserRole.USER_ROLE.ROLE }, Keys.PLATFORM_ROLE_PKEY, new TableField[] { PlatformRole.PLATFORM_ROLE.NAME }, true);
     public static final ForeignKey<UserRoleRecord, PlatformUserRecord> USER_ROLE__USER_ROLE_USER_ID_FKEY = Internal.createForeignKey(UserRole.USER_ROLE, DSL.name("user_role_user_id_fkey"), new TableField[] { UserRole.USER_ROLE.USER_ID }, Keys.PLATFORM_USER_PKEY, new TableField[] { PlatformUser.PLATFORM_USER.USER_ID }, true);
 }

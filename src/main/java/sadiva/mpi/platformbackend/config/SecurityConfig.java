@@ -54,6 +54,7 @@ public class SecurityConfig {
             // -- Swagger
             "/v3/api-docs/**",
             "/swagger-ui/**",
+            "/**"
     };
 
 }

@@ -13,8 +13,8 @@ import static jooq.sadiva.mpi.platformbackend.Tables.PRISONER_RATING;
 public class RatingRepo {
     private final DSLContext dslContext;
 
-    public void changeRating(UUID personId, Integer score) {
-        dslContext.update(PRISONER_RATING)
+    public int changeRating(UUID personId, Integer score) {
+        return dslContext.update(PRISONER_RATING)
                 .set(PRISONER_RATING.SCORE, PRISONER_RATING.SCORE.plus(score))
                 .where(PRISONER_RATING.PRISONER_ID.eq(personId))
                 .execute();

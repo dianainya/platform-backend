@@ -1,6 +1,7 @@
 package sadiva.mpi.platformbackend.controller.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -27,14 +28,14 @@ public class BarsController {
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(description = "Начислить баллы заключенному")
-    public void addScore(@RequestBody BarsAddScoreReq req) {
+    public void addScore(@RequestBody @Valid BarsAddScoreReq req) {
         barsService.addScore(req);
     }
 
     @PostMapping("/subtract")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(description = "Начислить баллы заключенному")
-    public void subtractScore(@RequestBody BarsSubtractScoreReq req) {
+    public void subtractScore(@RequestBody @Valid BarsSubtractScoreReq req) {
         barsService.subtractScore(req);
     }
 }

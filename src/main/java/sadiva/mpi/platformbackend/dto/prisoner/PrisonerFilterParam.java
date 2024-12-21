@@ -6,6 +6,6 @@ import static sadiva.mpi.platformbackend.controller.HttpFilterConsts.NO_SQLI_REG
 
 public record PrisonerFilterParam(
         @Pattern(regexp = NO_SQLI_REGEXP, flags = {Pattern.Flag.CASE_INSENSITIVE}, message = "SQL Injection suspected")
-        String fio
+        String search
 ) {
 }

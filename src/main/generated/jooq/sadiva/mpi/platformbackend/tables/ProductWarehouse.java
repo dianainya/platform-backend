@@ -5,6 +5,7 @@ package jooq.sadiva.mpi.platformbackend.tables;
 
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -17,11 +18,11 @@ import jooq.sadiva.mpi.platformbackend.tables.records.ProductWarehouseRecord;
 import org.jooq.Check;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function2;
+import org.jooq.Function3;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row2;
+import org.jooq.Row3;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -63,6 +64,11 @@ public class ProductWarehouse extends TableImpl<ProductWarehouseRecord> {
      * The column <code>s283945.product_warehouse.amount</code>.
      */
     public final TableField<ProductWarehouseRecord, BigDecimal> AMOUNT = createField(DSL.name("amount"), SQLDataType.NUMERIC, this, "");
+
+    /**
+     * The column <code>s283945.product_warehouse.updated_at</code>.
+     */
+    public final TableField<ProductWarehouseRecord, LocalDateTime> UPDATED_AT = createField(DSL.name("updated_at"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.LOCALDATETIME)), this, "");
 
     private ProductWarehouse(Name alias, Table<ProductWarehouseRecord> aliased) {
         this(alias, aliased, null);
@@ -166,18 +172,18 @@ public class ProductWarehouse extends TableImpl<ProductWarehouseRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row2 type methods
+    // Row3 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row2<UUID, BigDecimal> fieldsRow() {
-        return (Row2) super.fieldsRow();
+    public Row3<UUID, BigDecimal, LocalDateTime> fieldsRow() {
+        return (Row3) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function2<? super UUID, ? super BigDecimal, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function3<? super UUID, ? super BigDecimal, ? super LocalDateTime, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -185,7 +191,7 @@ public class ProductWarehouse extends TableImpl<ProductWarehouseRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function2<? super UUID, ? super BigDecimal, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function3<? super UUID, ? super BigDecimal, ? super LocalDateTime, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

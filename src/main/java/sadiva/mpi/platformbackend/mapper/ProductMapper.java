@@ -4,6 +4,7 @@ import jooq.sadiva.mpi.platformbackend.tables.pojos.Product;
 import org.mapstruct.Mapper;
 import sadiva.mpi.platformbackend.dto.product.ProductCreateOrUpdateDtoReq;
 import sadiva.mpi.platformbackend.dto.product.ProductDtoRes;
+import sadiva.mpi.platformbackend.entity.ProductEntity;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public interface ProductMapper {
     Product fromDtoToEntity(ProductCreateOrUpdateDtoReq productCreateOrUpdateDtoReq);
 
-    ProductDtoRes fromEntityToDto(Product product);
+    ProductDtoRes fromEntityToDto(ProductEntity entity);
 
-    List<ProductDtoRes> fromEntityToDtoList(List<Product> key);
+    List<ProductDtoRes> fromEntityToDtoList(List<ProductEntity> entityList);
 }

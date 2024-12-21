@@ -84,11 +84,11 @@ public class PrisonerRepo implements BasePaginatedRepository {
     }
 
     private <T extends Record> SelectConditionStep<T> applyFilter(SelectConditionStep<T> query, PrisonerFilterParam filterParam) {
-        if (filterParam.fio() != null) {
+        if (filterParam.search() != null && !filterParam.search().isEmpty()) {
             Condition condition = DSL.or(
-                    PRISONER.LAST_NAME.containsIgnoreCase(Arrays.toString(filterParam.fio().split(" "))),
-                    PRISONER.FIRST_NAME.containsIgnoreCase(Arrays.toString(filterParam.fio().split(" "))),
-                    PRISONER.PATRONYMIC.containsIgnoreCase(Arrays.toString(filterParam.fio().split(" ")))
+                    PRISONER.LAST_NAME.likeIgnoreCase("%" + filterParam.search() + "%"),
+                    PRISONER.FIRST_NAME.likeIgnoreCase("%" + filterParam.search() + "%"),
+                    PRISONER.PATRONYMIC.likeIgnoreCase("%" + filterParam.search() + "%")
             );
 
             query = query.and(condition);

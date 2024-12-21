@@ -1,10 +1,8 @@
 package sadiva.mpi.platformbackend.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import sadiva.mpi.platformbackend.dto.dish.DishCreateOrUpdateReqDto;
 import sadiva.mpi.platformbackend.dto.dish.DishDtoRes;
-import sadiva.mpi.platformbackend.dto.dish.Ingredient;
 import sadiva.mpi.platformbackend.entity.DishEntity;
 import sadiva.mpi.platformbackend.entity.IngredientEntity;
 

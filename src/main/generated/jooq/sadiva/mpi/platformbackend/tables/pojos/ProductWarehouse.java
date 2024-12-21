@@ -6,6 +6,7 @@ package jooq.sadiva.mpi.platformbackend.tables.pojos;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 
@@ -19,20 +20,24 @@ public class ProductWarehouse implements Serializable {
 
     private UUID productId;
     private BigDecimal amount;
+    private LocalDateTime updatedAt;
 
     public ProductWarehouse() {}
 
     public ProductWarehouse(ProductWarehouse value) {
         this.productId = value.productId;
         this.amount = value.amount;
+        this.updatedAt = value.updatedAt;
     }
 
     public ProductWarehouse(
         UUID productId,
-        BigDecimal amount
+        BigDecimal amount,
+        LocalDateTime updatedAt
     ) {
         this.productId = productId;
         this.amount = amount;
+        this.updatedAt = updatedAt;
     }
 
     /**
@@ -65,6 +70,21 @@ public class ProductWarehouse implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>s283945.product_warehouse.updated_at</code>.
+     */
+    public LocalDateTime getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    /**
+     * Setter for <code>s283945.product_warehouse.updated_at</code>.
+     */
+    public ProductWarehouse setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -86,6 +106,12 @@ public class ProductWarehouse implements Serializable {
         }
         else if (!this.amount.equals(other.amount))
             return false;
+        if (this.updatedAt == null) {
+            if (other.updatedAt != null)
+                return false;
+        }
+        else if (!this.updatedAt.equals(other.updatedAt))
+            return false;
         return true;
     }
 
@@ -95,6 +121,7 @@ public class ProductWarehouse implements Serializable {
         int result = 1;
         result = prime * result + ((this.productId == null) ? 0 : this.productId.hashCode());
         result = prime * result + ((this.amount == null) ? 0 : this.amount.hashCode());
+        result = prime * result + ((this.updatedAt == null) ? 0 : this.updatedAt.hashCode());
         return result;
     }
 
@@ -104,6 +131,7 @@ public class ProductWarehouse implements Serializable {
 
         sb.append(productId);
         sb.append(", ").append(amount);
+        sb.append(", ").append(updatedAt);
 
         sb.append(")");
         return sb.toString();

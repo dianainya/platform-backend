@@ -1,5 +1,6 @@
 package sadiva.mpi.platformbackend.repo;
 
+import jooq.sadiva.mpi.platformbackend.tables.pojos.PlatformUser;
 import jooq.sadiva.mpi.platformbackend.tables.records.PlatformUserRecord;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,9 @@ import org.jooq.Result;
 import org.springframework.stereotype.Repository;
 import sadiva.mpi.platformbackend.entity.PlatformUserEntity;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static jooq.sadiva.mpi.platformbackend.Tables.PLATFORM_USER;
 import static jooq.sadiva.mpi.platformbackend.Tables.USER_ROLE;
@@ -22,12 +25,13 @@ import static org.jooq.impl.DSL.multiset;
 public class UserRepo {
     private final DSLContext dsl;
 
-    public void create(String username, String password) {
-        dsl.insertInto(PLATFORM_USER)
+    public PlatformUser create(String username, String password) {
+        return dsl.insertInto(PLATFORM_USER)
                 .set(PLATFORM_USER.USERNAME, username)
                 .set(PLATFORM_USER.PASSWORD, password)
                 .set(PLATFORM_USER.ACTIVATED, false)
-                .execute();
+                .returning()
+                .fetchOneInto(PlatformUser.class);
     }
 
     public Optional<PlatformUserEntity> findByUsername(String username) {
@@ -55,4 +59,15 @@ public class UserRepo {
         );
     }
 
+    public void assignRoles(UUID userId, List<String> roles) {
+        dsl.deleteFrom(USER_ROLE)
+                .where(USER_ROLE.USER_ID.eq(userId))
+                .execute();
+        for (String role : roles) {
+            dsl.insertInto(USER_ROLE)
+                    .set(USER_ROLE.USER_ID, userId)
+                    .set(USER_ROLE.ROLE, role)
+                    .execute();
+        }
+    }
 }

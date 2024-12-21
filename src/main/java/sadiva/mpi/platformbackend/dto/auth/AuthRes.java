@@ -1,6 +1,7 @@
 package sadiva.mpi.platformbackend.dto.auth;
 
 public record AuthRes(
-        String token
+        String token,
+        Object[] roles
 ) {
 }

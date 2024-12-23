@@ -1,12 +1,11 @@
-package sadiva.mpi.platformbackend.entity;
+package sadiva.mpi.platformbackend.dto.user;
 
 import java.util.List;
 import java.util.UUID;
 
-public record PlatformUserEntity(
+public record UserRes(
         UUID id,
         String username,
-        String password,
         Boolean activated,
         List<String> roles
 ) {

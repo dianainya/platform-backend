@@ -44,8 +44,9 @@ public class PrisonerRepo implements BasePaginatedRepository {
                 .fetchOne(this::mapPrisonerEntity);
     }
 
-    public List<PrisonerEntity> getAllPrisonerOrderByRating() {
+    public List<PrisonerEntity> getAllAlivePrisonerOrderByRating() {
         return getSelectStep()
+                .and(PRISONER.IS_ALIVE.isTrue())
                 .orderBy(PRISONER_RATING.SCORE.desc())
                 .fetch(this::mapPrisonerEntity);
     }

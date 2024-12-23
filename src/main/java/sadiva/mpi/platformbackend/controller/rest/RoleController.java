@@ -1,26 +1,20 @@
 package sadiva.mpi.platformbackend.controller.rest;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-import sadiva.mpi.platformbackend.dto.auth.AuthRes;
-import sadiva.mpi.platformbackend.dto.roles.RolesReq;
-import sadiva.mpi.platformbackend.service.UserService;
-
-import java.util.UUID;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import sadiva.mpi.platformbackend.dto.user.RolesRes;
+import sadiva.mpi.platformbackend.service.RoleService;
 
 @RestController
 @RequestMapping("api/v1/roles")
 @RequiredArgsConstructor
 public class RoleController {
-    private final UserService userService;
+    private final RoleService roleService;
 
-
-//    @PutMapping("/{userId}")
-//    @Operation(summary = "assign rolesReq")
-//    public AuthRes assignRoles(@PathVariable UUID userId,
-//                               @Parameter @ModelAttribute RolesReq rolesReq) {
-//        return userService.assignRoles(userId, rolesReq);
-//    }
+    @GetMapping
+    public RolesRes getAll() {
+        return roleService.getAll();
+    }
 }

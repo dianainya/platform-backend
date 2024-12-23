@@ -31,7 +31,7 @@ public class PlatformService {
 
     @Transactional
     public void distributePrisoners() {
-        List<PrisonerEntity> prisonerList = prisonerRepo.getAllPrisonerOrderByRating();
+        List<PrisonerEntity> prisonerList = prisonerRepo.getAllAlivePrisonerOrderByRating();
         finish();
         platformRepo.truncate();
         platformRepo.distributePrisoners(prisonerList);

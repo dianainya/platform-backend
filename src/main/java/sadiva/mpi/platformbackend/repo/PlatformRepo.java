@@ -8,19 +8,18 @@ import org.jetbrains.annotations.Nullable;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.SelectConditionStep;
+import org.jooq.impl.DSL;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import sadiva.mpi.platformbackend.entity.PageEntity;
-import sadiva.mpi.platformbackend.entity.PlatformEntity;
-import sadiva.mpi.platformbackend.entity.PrisonerEntity;
-import sadiva.mpi.platformbackend.entity.PrisonerFioEntity;
+import sadiva.mpi.platformbackend.entity.*;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 import static jooq.sadiva.mpi.platformbackend.Tables.*;
+import static org.jooq.impl.DSL.field;
 import static org.jooq.impl.DSL.max;
 
 @Repository
@@ -142,5 +141,26 @@ public class PlatformRepo implements BasePaginatedRepository {
 
     public boolean isPlatformActive() {
         return dslContext.select(PLATFORM_ACTIVE_FLOOR.ACTIVE_FLOOR).from(PLATFORM_ACTIVE_FLOOR).fetchOneInto(Integer.class) != 0;
+    }
+
+    public List<DishCountEntity> getAllDishesAmountInPlatform() {
+        return dslContext.select(DISH.ID, DSL.count().as("dish_count"))
+                .from(
+                        dslContext.select(PRISONER.FAVORITE_DISH)
+                                .from(PLATFORM_PRISONER)
+                                .leftJoin(PRISONER).on(PRISONER.ID.eq(PLATFORM_PRISONER.FIRST_PRISONER))
+                                .where(PRISONER.FAVORITE_DISH.isNotNull())
+                                .unionAll(
+                                        dslContext.select(PRISONER.FAVORITE_DISH)
+                                                .from(PLATFORM_PRISONER)
+                                                .leftJoin(PRISONER).on(PRISONER.ID.eq(PLATFORM_PRISONER.SECOND_PRISONER))
+                                                .where(PRISONER.FAVORITE_DISH.isNotNull())
+                                )
+                )
+                .leftJoin(DISH).on(DISH.ID.eq(field("favorite_dish", UUID.class)))
+                .groupBy(DISH.ID)
+                .orderBy(DSL.count().desc())
+                .fetch(r -> new DishCountEntity(r.component1(), r.component2()));
+
     }
 }

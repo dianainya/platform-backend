@@ -4,6 +4,7 @@
 package jooq.sadiva.mpi.platformbackend;
 
 
+import jooq.sadiva.mpi.platformbackend.tables.CurrentMenu;
 import jooq.sadiva.mpi.platformbackend.tables.Dish;
 import jooq.sadiva.mpi.platformbackend.tables.DishIngredients;
 import jooq.sadiva.mpi.platformbackend.tables.Platform;
@@ -17,6 +18,7 @@ import jooq.sadiva.mpi.platformbackend.tables.PrisonerViolation;
 import jooq.sadiva.mpi.platformbackend.tables.Product;
 import jooq.sadiva.mpi.platformbackend.tables.ProductWarehouse;
 import jooq.sadiva.mpi.platformbackend.tables.UserRole;
+import jooq.sadiva.mpi.platformbackend.tables.records.CurrentMenuRecord;
 import jooq.sadiva.mpi.platformbackend.tables.records.DishIngredientsRecord;
 import jooq.sadiva.mpi.platformbackend.tables.records.DishRecord;
 import jooq.sadiva.mpi.platformbackend.tables.records.PlatformHistoryRecord;
@@ -70,6 +72,7 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<CurrentMenuRecord, DishRecord> CURRENT_MENU__CURRENT_MENU_DISH_ID_FKEY = Internal.createForeignKey(CurrentMenu.CURRENT_MENU, DSL.name("current_menu_dish_id_fkey"), new TableField[] { CurrentMenu.CURRENT_MENU.DISH_ID }, Keys.DISH_PKEY, new TableField[] { Dish.DISH.ID }, true);
     public static final ForeignKey<DishIngredientsRecord, DishRecord> DISH_INGREDIENTS__DISH_INGREDIENTS_DISH_ID_FKEY = Internal.createForeignKey(DishIngredients.DISH_INGREDIENTS, DSL.name("dish_ingredients_dish_id_fkey"), new TableField[] { DishIngredients.DISH_INGREDIENTS.DISH_ID }, Keys.DISH_PKEY, new TableField[] { Dish.DISH.ID }, true);
     public static final ForeignKey<DishIngredientsRecord, ProductRecord> DISH_INGREDIENTS__DISH_INGREDIENTS_PRODUCT_ID_FKEY = Internal.createForeignKey(DishIngredients.DISH_INGREDIENTS, DSL.name("dish_ingredients_product_id_fkey"), new TableField[] { DishIngredients.DISH_INGREDIENTS.PRODUCT_ID }, Keys.PRODUCT_PKEY, new TableField[] { Product.PRODUCT.ID }, true);
     public static final ForeignKey<PlatformHistoryRecord, PrisonerRecord> PLATFORM_HISTORY__PLATFORM_HISTORY_FIRST_PRISONER_FKEY = Internal.createForeignKey(PlatformHistory.PLATFORM_HISTORY, DSL.name("platform_history_first_prisoner_fkey"), new TableField[] { PlatformHistory.PLATFORM_HISTORY.FIRST_PRISONER }, Keys.PRISONER_PKEY, new TableField[] { Prisoner.PRISONER.ID }, true);

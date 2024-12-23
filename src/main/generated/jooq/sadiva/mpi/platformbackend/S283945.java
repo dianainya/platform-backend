@@ -7,6 +7,7 @@ package jooq.sadiva.mpi.platformbackend;
 import java.util.Arrays;
 import java.util.List;
 
+import jooq.sadiva.mpi.platformbackend.tables.CurrentMenu;
 import jooq.sadiva.mpi.platformbackend.tables.Dish;
 import jooq.sadiva.mpi.platformbackend.tables.DishIngredients;
 import jooq.sadiva.mpi.platformbackend.tables.Platform;
@@ -39,6 +40,11 @@ public class S283945 extends SchemaImpl {
      * The reference instance of <code>s283945</code>
      */
     public static final S283945 S283945 = new S283945();
+
+    /**
+     * The table <code>s283945.current_menu</code>.
+     */
+    public final CurrentMenu CURRENT_MENU = CurrentMenu.CURRENT_MENU;
 
     /**
      * The table <code>s283945.dish</code>.
@@ -126,6 +132,7 @@ public class S283945 extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
+            CurrentMenu.CURRENT_MENU,
             Dish.DISH,
             DishIngredients.DISH_INGREDIENTS,
             Platform.PLATFORM,

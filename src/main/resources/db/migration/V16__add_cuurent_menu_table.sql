@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS current_menu
+(
+    dish_id UUID REFERENCES dish (id) ON DELETE CASCADE,
+    amount INTEGER DEFAULT 0 NOT NULL CHECK ( AMOUNT >= 0 )
+    );

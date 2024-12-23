@@ -4,6 +4,7 @@
 package jooq.sadiva.mpi.platformbackend;
 
 
+import jooq.sadiva.mpi.platformbackend.tables.CurrentMenu;
 import jooq.sadiva.mpi.platformbackend.tables.Dish;
 import jooq.sadiva.mpi.platformbackend.tables.DishIngredients;
 import jooq.sadiva.mpi.platformbackend.tables.Platform;
@@ -25,6 +26,11 @@ import jooq.sadiva.mpi.platformbackend.tables.UserRole;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>s283945.current_menu</code>.
+     */
+    public static final CurrentMenu CURRENT_MENU = CurrentMenu.CURRENT_MENU;
 
     /**
      * The table <code>s283945.dish</code>.

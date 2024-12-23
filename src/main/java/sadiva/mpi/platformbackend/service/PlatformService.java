@@ -5,15 +5,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 import sadiva.mpi.platformbackend.dto.PageResponseDto;
 import sadiva.mpi.platformbackend.dto.platform.PlatformActiveFloorRes;
 import sadiva.mpi.platformbackend.dto.platform.PlatformDistribAvailabilityRes;
 import sadiva.mpi.platformbackend.dto.platform.PlatformStructureRes;
 import sadiva.mpi.platformbackend.dto.prisoner.PrisonerFilterParam;
+import sadiva.mpi.platformbackend.entity.DishCountEntity;
 import sadiva.mpi.platformbackend.entity.PageEntity;
 import sadiva.mpi.platformbackend.entity.PlatformEntity;
 import sadiva.mpi.platformbackend.entity.PrisonerEntity;
 import sadiva.mpi.platformbackend.mapper.PlatformMapper;
+import sadiva.mpi.platformbackend.repo.CurrentMenuRepo;
 import sadiva.mpi.platformbackend.repo.PlatformRepo;
 import sadiva.mpi.platformbackend.repo.PrisonerRepo;
 import sadiva.mpi.platformbackend.service.exception.ValidationException;
@@ -28,6 +31,8 @@ public class PlatformService {
     private final PrisonerRepo prisonerRepo;
     private final PlatformRepo platformRepo;
     private final PlatformMapper platformMapper;
+    private final CurrentMenuRepo currentMenuRepo;
+    private final TransactionTemplate transactionTemplate;
 
     @Transactional
     public void distributePrisoners() {
@@ -47,25 +52,35 @@ public class PlatformService {
         );
     }
 
-    @Transactional
     public void downFloor() {
-        final Integer maxFloor = platformRepo.getMaxFloor();
-        final Integer currentActiveFloor = platformRepo.getCurrentActiveFloor();
-        final Integer nextFloor = platformRepo.getNextActiveFloor(currentActiveFloor);
+        transactionTemplate.execute(status -> {
+            final Integer maxFloor = platformRepo.getMaxFloor();
+            final Integer currentActiveFloor = platformRepo.getCurrentActiveFloor();
+            final Integer nextFloor = platformRepo.getNextActiveFloor(currentActiveFloor);
 
-        if (Objects.equals(maxFloor, currentActiveFloor)) {
-            throw new ValidationException("Плафторма достигла низа");
-        }
-        this.platformRepo.updateActiveFloor(nextFloor);
+            if (Objects.equals(maxFloor, currentActiveFloor)) {
+                throw new ValidationException("Плафторма достигла низа");
+            }
+            this.platformRepo.updateActiveFloor(nextFloor);
+            return null;
+        });
     }
 
     public void finish() {
-        this.platformRepo.updateActiveFloor(0);
+        transactionTemplate.execute(status -> {
+            platformRepo.updateActiveFloor(0);
+            currentMenuRepo.truncate();
+            return null;
+        });
     }
 
     public void start() {
-        this.platformRepo.updateActiveFloor(0);
-        this.downFloor();
+        transactionTemplate.execute(status -> {
+            finish();
+            createCurrentMenu();
+            downFloor();
+            return null;
+        });
     }
 
     public PlatformActiveFloorRes getActiveFloor() {
@@ -84,5 +99,12 @@ public class PlatformService {
         }
 
         return new PlatformDistribAvailabilityRes(true, null);
+    }
+
+
+    private void createCurrentMenu() {
+        List<DishCountEntity> dishCounts = platformRepo.getAllDishesAmountInPlatform();
+        int rowAffected = currentMenuRepo.createCurrentMenu(dishCounts);
+        log.info("Created current menu. Affected rows: {}", rowAffected);
     }
 }

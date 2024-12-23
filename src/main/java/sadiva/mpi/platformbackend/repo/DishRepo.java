@@ -91,6 +91,11 @@ public class DishRepo implements BasePaginatedRepository {
         return dslContext.selectCount().from(DISH).where(DISH.ID.eq(id)).execute() == 1;
     }
 
+
+    public boolean fetchIfExistsWithName(String name) {
+        return dslContext.selectCount().from(DISH).where(DISH.NAME.eq(name)).execute() == 1;
+    }
+
     private @NotNull SelectConditionStep<Record2<Dish, Result<Record2<Integer, Product>>>> getSelectStep() {
         return dslContext.select(
                 DISH.mapping(Dish::new),

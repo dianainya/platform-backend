@@ -1,6 +1,7 @@
 package sadiva.mpi.platformbackend.controller.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
@@ -8,6 +9,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sadiva.mpi.platformbackend.dto.PageResponseDto;
+import sadiva.mpi.platformbackend.dto.platform.PlatformActiveFloorRes;
 import sadiva.mpi.platformbackend.dto.platform.PlatformStructureRes;
 import sadiva.mpi.platformbackend.service.PlatformService;
 
@@ -30,4 +32,32 @@ public class PlatformController {
     public PageResponseDto<PlatformStructureRes> getPlatformStructure(@ParameterObject @PageableDefault(page = 1) Pageable pageable) {
         return platformService.getPlatformStructure(pageable);
     }
+
+    @GetMapping("/active-floor")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(description = "Опустить платформу на один этаж")
+    public PlatformActiveFloorRes getActiveFloor() {
+       return platformService.getActiveFloor();
+    }
+
+    @PutMapping("/start")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(description = "Запустить работу платформы")
+    public void start() {
+        platformService.start();
+    }
+    @PutMapping("/finish")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(description = "Завершить работу платформы")
+    public void finish() {
+        platformService.finish();
+    }
+
+    @PutMapping("/down")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(description = "Опустить платформу на один этаж")
+    public void downFloor() {
+        platformService.downFloor();
+    }
+
 }

@@ -128,7 +128,7 @@ public class ProductWarehouse extends TableImpl<ProductWarehouseRecord> {
     @Override
     public List<Check<ProductWarehouseRecord>> getChecks() {
         return Arrays.asList(
-            Internal.createCheck(this, DSL.name("product_warehouse_amount_check"), "((amount > (0)::numeric))", true)
+            Internal.createCheck(this, DSL.name("product_warehouse_amount_check"), "((amount >= (0)::numeric))", true)
         );
     }
 

@@ -7,6 +7,7 @@ package jooq.sadiva.mpi.platformbackend;
 import jooq.sadiva.mpi.platformbackend.tables.Dish;
 import jooq.sadiva.mpi.platformbackend.tables.DishIngredients;
 import jooq.sadiva.mpi.platformbackend.tables.Platform;
+import jooq.sadiva.mpi.platformbackend.tables.PlatformActiveFloor;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformHistory;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformPrisoner;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformRole;
@@ -39,6 +40,11 @@ public class Tables {
      * The table <code>s283945.platform</code>.
      */
     public static final Platform PLATFORM = Platform.PLATFORM;
+
+    /**
+     * The table <code>s283945.platform_active_floor</code>.
+     */
+    public static final PlatformActiveFloor PLATFORM_ACTIVE_FLOOR = PlatformActiveFloor.PLATFORM_ACTIVE_FLOOR;
 
     /**
      * The table <code>s283945.platform_history</code>.

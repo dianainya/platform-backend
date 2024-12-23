@@ -15,11 +15,11 @@ import jooq.sadiva.mpi.platformbackend.tables.records.PlatformPrisonerRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function4;
+import org.jooq.Function3;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row4;
+import org.jooq.Row3;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -66,11 +66,6 @@ public class PlatformPrisoner extends TableImpl<PlatformPrisonerRecord> {
      * The column <code>s283945.platform_prisoner.second_prisoner</code>.
      */
     public final TableField<PlatformPrisonerRecord, UUID> SECOND_PRISONER = createField(DSL.name("second_prisoner"), SQLDataType.UUID, this, "");
-
-    /**
-     * The column <code>s283945.platform_prisoner.is_active</code>.
-     */
-    public final TableField<PlatformPrisonerRecord, Boolean> IS_ACTIVE = createField(DSL.name("is_active"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
 
     private PlatformPrisoner(Name alias, Table<PlatformPrisonerRecord> aliased) {
         this(alias, aliased, null);
@@ -185,18 +180,18 @@ public class PlatformPrisoner extends TableImpl<PlatformPrisonerRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row4 type methods
+    // Row3 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row4<Integer, UUID, UUID, Boolean> fieldsRow() {
-        return (Row4) super.fieldsRow();
+    public Row3<Integer, UUID, UUID> fieldsRow() {
+        return (Row3) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function4<? super Integer, ? super UUID, ? super UUID, ? super Boolean, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function3<? super Integer, ? super UUID, ? super UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -204,7 +199,7 @@ public class PlatformPrisoner extends TableImpl<PlatformPrisonerRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function4<? super Integer, ? super UUID, ? super UUID, ? super Boolean, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function3<? super Integer, ? super UUID, ? super UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

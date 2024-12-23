@@ -3,6 +3,7 @@ package sadiva.mpi.platformbackend.entity;
 public record PlatformEntity(
         Integer floor,
         PrisonerFioEntity firstPrisoner,
-        PrisonerFioEntity secondPrisoner
+        PrisonerFioEntity secondPrisoner,
+        Boolean isActive
 ) {
 }

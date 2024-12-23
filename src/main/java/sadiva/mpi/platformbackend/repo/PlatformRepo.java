@@ -16,9 +16,11 @@ import sadiva.mpi.platformbackend.entity.PrisonerEntity;
 import sadiva.mpi.platformbackend.entity.PrisonerFioEntity;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import static jooq.sadiva.mpi.platformbackend.Tables.*;
+import static org.jooq.impl.DSL.max;
 
 @Repository
 @RequiredArgsConstructor
@@ -56,7 +58,11 @@ public class PlatformRepo implements BasePaginatedRepository {
         var select = getSelectStep();
         var count = dslContext.selectCount().from(PLATFORM_PRISONER);
 
-        List<PlatformEntity> res = applyPagination(select, pageable).fetch(this::mapPlatformEntity);
+        List<PlatformEntity> res = select
+                .orderBy(PLATFORM_PRISONER.FLOOR.asc())
+                .offset((pageable.getPageNumber() - 1) * pageable.getPageSize())
+                .limit(pageable.getPageSize())
+                .fetch(this::mapPlatformEntity);
         Integer totalCount = count.fetchOneInto(Integer.class);
 
         return new PageEntity<>(res, totalCount);
@@ -68,6 +74,7 @@ public class PlatformRepo implements BasePaginatedRepository {
                 .leftJoin(FIRST_PRISONER_RATING).on(FIRST_PRISONER_RATING.PRISONER_ID.eq(FIRST_PRISONER.ID))
                 .leftJoin(SECOND_PRISONER).on(PLATFORM_PRISONER.SECOND_PRISONER.eq(SECOND_PRISONER.ID))
                 .leftJoin(SECOND_PRISONER_RATING).on(SECOND_PRISONER_RATING.PRISONER_ID.eq(SECOND_PRISONER.ID))
+                .leftJoin(PLATFORM_ACTIVE_FLOOR).on(PLATFORM_PRISONER.FLOOR.eq(PLATFORM_ACTIVE_FLOOR.ACTIVE_FLOOR))
                 .where();
     }
 
@@ -88,7 +95,26 @@ public class PlatformRepo implements BasePaginatedRepository {
                         record.get(SECOND_PRISONER.FIRST_NAME),
                         record.get(SECOND_PRISONER.PATRONYMIC),
                         record.get(SECOND_PRISONER_RATING.SCORE)
-                )
+                ),
+                Objects.equals(record.get(PLATFORM_ACTIVE_FLOOR.ACTIVE_FLOOR), record.get(PLATFORM_PRISONER.FLOOR))
         );
+    }
+    public Integer getMaxFloor() {
+        return dslContext.select(max(PLATFORM_PRISONER.FLOOR))
+                .from(PLATFORM_PRISONER)
+                .fetchOneInto(Integer.class);
+    }
+
+    public Integer getCurrentActiveFloor() {
+       Integer activeFloor = dslContext.select(PLATFORM_ACTIVE_FLOOR.ACTIVE_FLOOR)
+                .from(PLATFORM_ACTIVE_FLOOR)
+                .fetchOne(PLATFORM_ACTIVE_FLOOR.ACTIVE_FLOOR);
+        return activeFloor == null ? 0 : activeFloor;
+    }
+
+    public void updateActiveFloor(Integer floor) {
+        dslContext.update(PLATFORM_ACTIVE_FLOOR)
+                .set(PLATFORM_ACTIVE_FLOOR.ACTIVE_FLOOR, floor)
+                .execute();
     }
 }

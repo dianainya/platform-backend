@@ -21,7 +21,6 @@ public class PlatformPrisoner implements Serializable {
     private Integer floor;
     private UUID firstPrisoner;
     private UUID secondPrisoner;
-    private Boolean isActive;
 
     public PlatformPrisoner() {}
 
@@ -29,19 +28,16 @@ public class PlatformPrisoner implements Serializable {
         this.floor = value.floor;
         this.firstPrisoner = value.firstPrisoner;
         this.secondPrisoner = value.secondPrisoner;
-        this.isActive = value.isActive;
     }
 
     public PlatformPrisoner(
         Integer floor,
         UUID firstPrisoner,
-        UUID secondPrisoner,
-        Boolean isActive
+        UUID secondPrisoner
     ) {
         this.floor = floor;
         this.firstPrisoner = firstPrisoner;
         this.secondPrisoner = secondPrisoner;
-        this.isActive = isActive;
     }
 
     /**
@@ -91,21 +87,6 @@ public class PlatformPrisoner implements Serializable {
         return this;
     }
 
-    /**
-     * Getter for <code>s283945.platform_prisoner.is_active</code>.
-     */
-    public Boolean getIsActive() {
-        return this.isActive;
-    }
-
-    /**
-     * Setter for <code>s283945.platform_prisoner.is_active</code>.
-     */
-    public PlatformPrisoner setIsActive(Boolean isActive) {
-        this.isActive = isActive;
-        return this;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -133,12 +114,6 @@ public class PlatformPrisoner implements Serializable {
         }
         else if (!this.secondPrisoner.equals(other.secondPrisoner))
             return false;
-        if (this.isActive == null) {
-            if (other.isActive != null)
-                return false;
-        }
-        else if (!this.isActive.equals(other.isActive))
-            return false;
         return true;
     }
 
@@ -149,7 +124,6 @@ public class PlatformPrisoner implements Serializable {
         result = prime * result + ((this.floor == null) ? 0 : this.floor.hashCode());
         result = prime * result + ((this.firstPrisoner == null) ? 0 : this.firstPrisoner.hashCode());
         result = prime * result + ((this.secondPrisoner == null) ? 0 : this.secondPrisoner.hashCode());
-        result = prime * result + ((this.isActive == null) ? 0 : this.isActive.hashCode());
         return result;
     }
 
@@ -160,7 +134,6 @@ public class PlatformPrisoner implements Serializable {
         sb.append(floor);
         sb.append(", ").append(firstPrisoner);
         sb.append(", ").append(secondPrisoner);
-        sb.append(", ").append(isActive);
 
         sb.append(")");
         return sb.toString();

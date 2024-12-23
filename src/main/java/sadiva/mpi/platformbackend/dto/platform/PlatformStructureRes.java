@@ -5,6 +5,7 @@ import sadiva.mpi.platformbackend.dto.prisoner.PrisonerFioRes;
 public record PlatformStructureRes(
         Integer floor,
         PrisonerFioRes firstPrisoner,
-        PrisonerFioRes secondPrisoner
+        PrisonerFioRes secondPrisoner,
+        Boolean isActive
 ) {
 }

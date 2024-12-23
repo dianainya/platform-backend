@@ -1,6 +1,7 @@
 package sadiva.mpi.platformbackend.service;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,9 @@ public class DishService {
     @Transactional
     public DishDtoRes save(DishCreateOrUpdateReqDto dto) {
         UUID dishId;
+        if (dishRepo.fetchIfExistsWithName(dto.name())){
+            throw new ValidationException("Блюдо с названием " + dto.name() + " уже существует");
+        }
         try {
             dishId = dishRepo.save(dishMapper.fromDtoToEntity(dto), dto.ingredients());
         } catch (DuplicateKeyException e) {
@@ -56,6 +60,9 @@ public class DishService {
 
     @Transactional
     public DishDtoRes update(UUID id, DishCreateOrUpdateReqDto dto) {
+        if (dishRepo.fetchIfExistsWithName(dto.name())){
+            throw new ValidationException("Блюдо с названием " + dto.name() + " уже существует");
+        }
         UUID dishId = dishRepo.update(id, dishMapper.fromDtoToEntity(dto), dto.ingredients());
         if (dishId == null) {
             throw new NotFoundException("Блюдо с ID " + id + " не найдено");

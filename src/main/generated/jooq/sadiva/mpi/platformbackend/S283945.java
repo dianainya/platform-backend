@@ -10,6 +10,7 @@ import java.util.List;
 import jooq.sadiva.mpi.platformbackend.tables.Dish;
 import jooq.sadiva.mpi.platformbackend.tables.DishIngredients;
 import jooq.sadiva.mpi.platformbackend.tables.Platform;
+import jooq.sadiva.mpi.platformbackend.tables.PlatformActiveFloor;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformHistory;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformPrisoner;
 import jooq.sadiva.mpi.platformbackend.tables.PlatformRole;
@@ -53,6 +54,11 @@ public class S283945 extends SchemaImpl {
      * The table <code>s283945.platform</code>.
      */
     public final Platform PLATFORM = Platform.PLATFORM;
+
+    /**
+     * The table <code>s283945.platform_active_floor</code>.
+     */
+    public final PlatformActiveFloor PLATFORM_ACTIVE_FLOOR = PlatformActiveFloor.PLATFORM_ACTIVE_FLOOR;
 
     /**
      * The table <code>s283945.platform_history</code>.
@@ -123,6 +129,7 @@ public class S283945 extends SchemaImpl {
             Dish.DISH,
             DishIngredients.DISH_INGREDIENTS,
             Platform.PLATFORM,
+            PlatformActiveFloor.PLATFORM_ACTIVE_FLOOR,
             PlatformHistory.PLATFORM_HISTORY,
             PlatformPrisoner.PLATFORM_PRISONER,
             PlatformRole.PLATFORM_ROLE,

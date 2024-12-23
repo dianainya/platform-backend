@@ -32,6 +32,7 @@ public class PlatformService {
     @Transactional
     public void distributePrisoners() {
         List<PrisonerEntity> prisonerList = prisonerRepo.getAllPrisonerOrderByRating();
+        finish();
         platformRepo.truncate();
         platformRepo.distributePrisoners(prisonerList);
     }
@@ -49,13 +50,13 @@ public class PlatformService {
     @Transactional
     public void downFloor() {
         final Integer maxFloor = platformRepo.getMaxFloor();
-        final Integer activeFloor = platformRepo.getCurrentActiveFloor();
+        final Integer currentActiveFloor = platformRepo.getCurrentActiveFloor();
+        final Integer nextFloor = platformRepo.getNextActiveFloor(currentActiveFloor);
 
-        if (Objects.equals(maxFloor, activeFloor)) {
+        if (Objects.equals(maxFloor, currentActiveFloor)) {
             throw new ValidationException("Плафторма достигла низа");
         }
-
-        this.platformRepo.updateActiveFloor(activeFloor + 1);
+        this.platformRepo.updateActiveFloor(nextFloor);
     }
 
     public void finish() {
@@ -63,7 +64,8 @@ public class PlatformService {
     }
 
     public void start() {
-        this.platformRepo.updateActiveFloor(1);
+        this.platformRepo.updateActiveFloor(0);
+        this.downFloor();
     }
 
     public PlatformActiveFloorRes getActiveFloor() {
@@ -77,6 +79,10 @@ public class PlatformService {
         if (!prisonerList.isEmpty()) {
             return new PlatformDistribAvailabilityRes(false, "Не у всех заключенных заполнено блюдо");
         }
+        if (platformRepo.isPlatformActive()) {
+            return new PlatformDistribAvailabilityRes(false, "Плафторма запущена");
+        }
+
         return new PlatformDistribAvailabilityRes(true, null);
     }
 }

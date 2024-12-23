@@ -40,7 +40,6 @@ public class PlatformController {
     }
 
     @GetMapping("/active-floor")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(description = "Опустить платформу на один этаж")
     public PlatformActiveFloorRes getActiveFloor() {
        return platformService.getActiveFloor();
@@ -52,6 +51,7 @@ public class PlatformController {
     public void start() {
         platformService.start();
     }
+
     @PutMapping("/finish")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(description = "Завершить работу платформы")

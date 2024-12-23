@@ -4,6 +4,7 @@ import jooq.sadiva.mpi.platformbackend.tables.Prisoner;
 import jooq.sadiva.mpi.platformbackend.tables.PrisonerRating;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.SelectConditionStep;
@@ -68,6 +69,11 @@ public class PlatformRepo implements BasePaginatedRepository {
         return new PageEntity<>(res, totalCount);
     }
 
+
+    public @Nullable PlatformEntity getFloor(Integer floor) {
+        return getSelectStep().and(PLATFORM_PRISONER.FLOOR.eq(floor)).fetchOne(this::mapPlatformEntity);
+    }
+
     private @NotNull SelectConditionStep<Record> getSelectStep() {
         return dslContext.select().from(PLATFORM_PRISONER)
                 .leftJoin(FIRST_PRISONER).on(PLATFORM_PRISONER.FIRST_PRISONER.eq(FIRST_PRISONER.ID))
@@ -98,7 +104,7 @@ public class PlatformRepo implements BasePaginatedRepository {
                         record.get(SECOND_PRISONER_RATING.SCORE),
                         record.get(SECOND_PRISONER.IS_ALIVE)
                 ),
-        Objects.equals(record.get(PLATFORM_ACTIVE_FLOOR.ACTIVE_FLOOR), record.get(PLATFORM_PRISONER.FLOOR))
+                Objects.equals(record.get(PLATFORM_ACTIVE_FLOOR.ACTIVE_FLOOR), record.get(PLATFORM_PRISONER.FLOOR))
         );
     }
 
@@ -115,9 +121,26 @@ public class PlatformRepo implements BasePaginatedRepository {
         return activeFloor == null ? 0 : activeFloor;
     }
 
+    public Integer getNextActiveFloor(Integer currentActiveFloor) {
+        Integer activeFloor = dslContext.select().from(PLATFORM_PRISONER)
+                .leftJoin(FIRST_PRISONER).on(PLATFORM_PRISONER.FIRST_PRISONER.eq(FIRST_PRISONER.ID))
+                .leftJoin(SECOND_PRISONER).on(PLATFORM_PRISONER.SECOND_PRISONER.eq(SECOND_PRISONER.ID))
+                .leftJoin(PLATFORM_ACTIVE_FLOOR).on(PLATFORM_PRISONER.FLOOR.eq(PLATFORM_ACTIVE_FLOOR.ACTIVE_FLOOR))
+                .where(FIRST_PRISONER.IS_ALIVE.eq(true).or(SECOND_PRISONER.IS_ALIVE.eq(true)))
+                .and(PLATFORM_PRISONER.FLOOR.gt(currentActiveFloor))
+                .orderBy(PLATFORM_PRISONER.FLOOR.asc())
+                .limit(1)
+                .fetchOne(PLATFORM_PRISONER.FLOOR);
+        return activeFloor == null ? 0 : activeFloor;
+    }
+
     public void updateActiveFloor(Integer floor) {
         dslContext.update(PLATFORM_ACTIVE_FLOOR)
                 .set(PLATFORM_ACTIVE_FLOOR.ACTIVE_FLOOR, floor)
                 .execute();
+    }
+
+    public boolean isPlatformActive() {
+        return dslContext.select(PLATFORM_ACTIVE_FLOOR.ACTIVE_FLOOR).from(PLATFORM_ACTIVE_FLOOR).fetchOneInto(Integer.class) != 0;
     }
 }

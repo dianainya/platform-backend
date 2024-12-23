@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 import sadiva.mpi.platformbackend.dto.dish.DishFilterParam;
 import sadiva.mpi.platformbackend.dto.dish.Ingredient;
 import sadiva.mpi.platformbackend.entity.DishEntity;
-import sadiva.mpi.platformbackend.entity.IngredientEntity;
 import sadiva.mpi.platformbackend.entity.PageEntity;
+import sadiva.mpi.platformbackend.mapper.DishMapper;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,7 +28,6 @@ import static org.jooq.impl.DSL.select;
 @RequiredArgsConstructor
 public class DishRepo implements BasePaginatedRepository {
     private final DSLContext dslContext;
-
 
     public UUID save(DishEntity dish, List<Ingredient> ingredients) {
         UUID dishId = dslContext.insertInto(DISH)
@@ -47,7 +46,7 @@ public class DishRepo implements BasePaginatedRepository {
     }
 
     public DishEntity getById(UUID id) {
-        return getSelectStep().and(DISH.ID.eq(id)).fetchOne(this::mapDishEntity);
+        return getSelectStep().and(DISH.ID.eq(id)).fetchOne(r -> DishMapper.mapDishEntity(r.component1(), r.component2()));
     }
 
     public PageEntity<DishEntity> getPaginated(DishFilterParam filterParam, Pageable pageable) {
@@ -57,7 +56,8 @@ public class DishRepo implements BasePaginatedRepository {
         select = applyFilter(select, filterParam);
         count = applyFilter(count, filterParam);
 
-        List<DishEntity> dishEntities = applyPagination(select, pageable).fetch(this::mapDishEntity);
+        List<DishEntity> dishEntities = applyPagination(select, pageable)
+                .fetch((r) -> DishMapper.mapDishEntity(r.component1(), r.component2()));
         Integer totalCount = count.fetchOneInto(Integer.class);
         return new PageEntity<>(dishEntities, totalCount);
     }
@@ -131,18 +131,6 @@ public class DishRepo implements BasePaginatedRepository {
             );
         }
         batch.execute();
-    }
-
-    private DishEntity mapDishEntity(Record2<Dish, Result<Record2<Integer, Product>>> r) {
-        return new DishEntity(
-                r.component1().getId(),
-                r.component1().getName(),
-                r.component1().getDescription(),
-                r.component1().getReceipt(),
-                r.component2().stream().map(record -> new IngredientEntity(
-                        record.component1(),
-                        record.component2()
-                )).toList());
     }
 
     public Dish getByName(String name) {

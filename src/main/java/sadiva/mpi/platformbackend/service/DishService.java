@@ -1,5 +1,6 @@
 package sadiva.mpi.platformbackend.service;
 
+import jooq.sadiva.mpi.platformbackend.tables.pojos.Dish;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.dao.DuplicateKeyException;
@@ -60,9 +61,6 @@ public class DishService {
 
     @Transactional
     public DishDtoRes update(UUID id, DishCreateOrUpdateReqDto dto) {
-        if (dishRepo.fetchIfExistsWithName(dto.name())){
-            throw new ValidationException("Блюдо с названием " + dto.name() + " уже существует");
-        }
         UUID dishId = dishRepo.update(id, dishMapper.fromDtoToEntity(dto), dto.ingredients());
         if (dishId == null) {
             throw new NotFoundException("Блюдо с ID " + id + " не найдено");
@@ -72,5 +70,13 @@ public class DishService {
 
     public void deleteById(UUID id) {
         dishRepo.deleteById(id);
+    }
+
+    public Dish getByName(String name) {
+        return dishRepo.getByName(name);
+    }
+
+    public Dish createNotImplementedDish(String name) {
+        return dishRepo.createNotImplementedDish(name);
     }
 }

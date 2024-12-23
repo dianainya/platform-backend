@@ -7,6 +7,7 @@ public record PrisonerFioRes(
         String lastName,
         String firstName,
         String patronymic,
-        Double rating
+        Double rating,
+        Boolean isAlive
 ) {
 }

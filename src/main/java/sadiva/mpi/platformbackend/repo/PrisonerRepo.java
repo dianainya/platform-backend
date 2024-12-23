@@ -14,7 +14,6 @@ import sadiva.mpi.platformbackend.entity.DishShortEntity;
 import sadiva.mpi.platformbackend.entity.PageEntity;
 import sadiva.mpi.platformbackend.entity.PrisonerEntity;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -62,6 +61,10 @@ public class PrisonerRepo implements BasePaginatedRepository {
         Integer totalCount = count.fetchOne(0, Integer.class);
         return new PageEntity<>(res, totalCount);
     }
+    public @NotNull List<PrisonerEntity> getAll(PrisonerFilterParam filterParam) {
+        var select = getSelectStep();
+        return applyFilter(select, filterParam).fetch(this::mapPrisonerEntity);
+    }
 
     public void deleteById(UUID id) {
         dslContext.deleteFrom(PRISONER)
@@ -69,15 +72,11 @@ public class PrisonerRepo implements BasePaginatedRepository {
                 .execute();
     }
 
-    public UUID update(UUID id, Prisoner prisoner) {
+    public UUID update(UUID id, UUID dishId, Boolean isAlive, Double weight) {
         return dslContext.update(PRISONER)
-                .set(PRISONER.LAST_NAME, prisoner.getLastName())
-                .set(PRISONER.PATRONYMIC, prisoner.getPatronymic())
-                .set(PRISONER.FIRST_NAME, prisoner.getFirstName())
-                .set(PRISONER.WEIGHT, prisoner.getWeight())
-                .set(PRISONER.BIRTH_DATE, prisoner.getBirthDate())
-                .set(PRISONER.PASSPORT, prisoner.getPassport())
-                .set(PRISONER.FAVORITE_DISH, prisoner.getFavoriteDish())
+                .set(PRISONER.WEIGHT, weight)
+                .set(PRISONER.FAVORITE_DISH,dishId)
+                .set(PRISONER.IS_ALIVE,isAlive)
                 .where(PRISONER.ID.eq(id))
                 .returningResult(PRISONER.ID)
                 .fetchOneInto(UUID.class);
@@ -93,6 +92,9 @@ public class PrisonerRepo implements BasePaginatedRepository {
 
             query = query.and(condition);
 
+        }
+        if (filterParam.isDishImplemented() != null ) {
+            query = query.and(filterParam.isDishImplemented() ? PRISONER.FAVORITE_DISH.isNotNull() : PRISONER.FAVORITE_DISH.isNull());
         }
         return query;
     }
@@ -119,7 +121,8 @@ public class PrisonerRepo implements BasePaginatedRepository {
                 r.component1().getWeight(),
                 r.component1().getBirthDate(),
                 r.component2(),
-                r.component3().getScore()
+                r.component3().getScore(),
+                r.component1().getIsAlive()
         );
     }
 }

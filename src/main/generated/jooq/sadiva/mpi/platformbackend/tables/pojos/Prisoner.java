@@ -28,6 +28,7 @@ public class Prisoner implements Serializable {
     private LocalDate birthDate;
     private String passport;
     private UUID favoriteDish;
+    private Boolean isAlive;
 
     public Prisoner() {}
 
@@ -40,6 +41,7 @@ public class Prisoner implements Serializable {
         this.birthDate = value.birthDate;
         this.passport = value.passport;
         this.favoriteDish = value.favoriteDish;
+        this.isAlive = value.isAlive;
     }
 
     public Prisoner(
@@ -50,7 +52,8 @@ public class Prisoner implements Serializable {
         Double weight,
         LocalDate birthDate,
         String passport,
-        UUID favoriteDish
+        UUID favoriteDish,
+        Boolean isAlive
     ) {
         this.id = id;
         this.firstName = firstName;
@@ -60,6 +63,7 @@ public class Prisoner implements Serializable {
         this.birthDate = birthDate;
         this.passport = passport;
         this.favoriteDish = favoriteDish;
+        this.isAlive = isAlive;
     }
 
     /**
@@ -190,6 +194,21 @@ public class Prisoner implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>s283945.prisoner.is_alive</code>.
+     */
+    public Boolean getIsAlive() {
+        return this.isAlive;
+    }
+
+    /**
+     * Setter for <code>s283945.prisoner.is_alive</code>.
+     */
+    public Prisoner setIsAlive(Boolean isAlive) {
+        this.isAlive = isAlive;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -247,6 +266,12 @@ public class Prisoner implements Serializable {
         }
         else if (!this.favoriteDish.equals(other.favoriteDish))
             return false;
+        if (this.isAlive == null) {
+            if (other.isAlive != null)
+                return false;
+        }
+        else if (!this.isAlive.equals(other.isAlive))
+            return false;
         return true;
     }
 
@@ -262,6 +287,7 @@ public class Prisoner implements Serializable {
         result = prime * result + ((this.birthDate == null) ? 0 : this.birthDate.hashCode());
         result = prime * result + ((this.passport == null) ? 0 : this.passport.hashCode());
         result = prime * result + ((this.favoriteDish == null) ? 0 : this.favoriteDish.hashCode());
+        result = prime * result + ((this.isAlive == null) ? 0 : this.isAlive.hashCode());
         return result;
     }
 
@@ -277,6 +303,7 @@ public class Prisoner implements Serializable {
         sb.append(", ").append(birthDate);
         sb.append(", ").append(passport);
         sb.append(", ").append(favoriteDish);
+        sb.append(", ").append(isAlive);
 
         sb.append(")");
         return sb.toString();

@@ -70,7 +70,6 @@ public class DishRecord extends UpdatableRecordImpl<DishRecord> implements Recor
     /**
      * Getter for <code>s283945.dish.receipt</code>.
      */
-    @NotNull
     public String getReceipt() {
         return (String) get(2);
     }

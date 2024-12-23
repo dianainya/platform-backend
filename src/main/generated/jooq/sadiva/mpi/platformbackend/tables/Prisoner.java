@@ -16,11 +16,11 @@ import jooq.sadiva.mpi.platformbackend.tables.records.PrisonerRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function8;
+import org.jooq.Function9;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row8;
+import org.jooq.Row9;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -92,6 +92,11 @@ public class Prisoner extends TableImpl<PrisonerRecord> {
      * The column <code>s283945.prisoner.favorite_dish</code>.
      */
     public final TableField<PrisonerRecord, UUID> FAVORITE_DISH = createField(DSL.name("favorite_dish"), SQLDataType.UUID, this, "");
+
+    /**
+     * The column <code>s283945.prisoner.is_alive</code>.
+     */
+    public final TableField<PrisonerRecord, Boolean> IS_ALIVE = createField(DSL.name("is_alive"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field(DSL.raw("true"), SQLDataType.BOOLEAN)), this, "");
 
     private Prisoner(Name alias, Table<PrisonerRecord> aliased) {
         this(alias, aliased, null);
@@ -198,18 +203,18 @@ public class Prisoner extends TableImpl<PrisonerRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row8 type methods
+    // Row9 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row8<UUID, String, String, String, Double, LocalDate, String, UUID> fieldsRow() {
-        return (Row8) super.fieldsRow();
+    public Row9<UUID, String, String, String, Double, LocalDate, String, UUID, Boolean> fieldsRow() {
+        return (Row9) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function8<? super UUID, ? super String, ? super String, ? super String, ? super Double, ? super LocalDate, ? super String, ? super UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function9<? super UUID, ? super String, ? super String, ? super String, ? super Double, ? super LocalDate, ? super String, ? super UUID, ? super Boolean, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -217,7 +222,7 @@ public class Prisoner extends TableImpl<PrisonerRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function8<? super UUID, ? super String, ? super String, ? super String, ? super Double, ? super LocalDate, ? super String, ? super UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function9<? super UUID, ? super String, ? super String, ? super String, ? super Double, ? super LocalDate, ? super String, ? super UUID, ? super Boolean, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

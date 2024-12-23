@@ -3,9 +3,8 @@ package sadiva.mpi.platformbackend.dto.prisoner;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
-public record PrisonerCreateOrUpdateReq(
+public record PrisonerCreateReq(
         @NotNull
         @NotBlank
         String lastName,
@@ -26,6 +25,6 @@ public record PrisonerCreateOrUpdateReq(
         @NotNull
         LocalDate birthDate,
         @NotNull
-        UUID favoriteDish
+        String favoriteDishName
 ) {
 }

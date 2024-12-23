@@ -108,8 +108,9 @@ public class DishRepo implements BasePaginatedRepository {
     }
 
     private <T extends Record> SelectConditionStep<T> applyFilter(SelectConditionStep<T> res, DishFilterParam filterParam) {
-        if (filterParam.name() != null) {
-            res = res.and(DISH.NAME.likeIgnoreCase("%" + filterParam.name() + "%"));
+        res = res.and(filterParam.getIsImplemented() ? DISH.RECEIPT.isNotNull() : DISH.RECEIPT.isNull());
+        if (filterParam.getName() != null) {
+            res = res.and(DISH.NAME.likeIgnoreCase("%" + filterParam.getName() + "%"));
         }
         return res;
     }
@@ -142,5 +143,13 @@ public class DishRepo implements BasePaginatedRepository {
                         record.component1(),
                         record.component2()
                 )).toList());
+    }
+
+    public Dish getByName(String name) {
+        return this.dslContext.selectDistinct().from(DISH).where(DISH.NAME.eq(name)).fetchOneInto(Dish.class);
+    }
+
+    public Dish createNotImplementedDish(String name) {
+        return dslContext.insertInto(DISH).set(DISH.NAME, name).returning().fetchOneInto(Dish.class);
     }
 }

@@ -8,6 +8,7 @@ public record PrisonerFioEntity(
         String lastName,
         String firstName,
         String patronymic,
-        BigDecimal rating
+        BigDecimal rating,
+        Boolean isAlive
 ) {
 }

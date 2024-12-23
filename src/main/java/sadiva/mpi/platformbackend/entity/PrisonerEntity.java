@@ -13,6 +13,7 @@ public record PrisonerEntity(
         Double weight,
         LocalDate birthDate,
         DishShortEntity favoriteDish,
-        BigDecimal rating
+        BigDecimal rating,
+        Boolean isAlive
 ) {
 }

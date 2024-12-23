@@ -87,18 +87,21 @@ public class PlatformRepo implements BasePaginatedRepository {
                         record.get(FIRST_PRISONER.LAST_NAME),
                         record.get(FIRST_PRISONER.FIRST_NAME),
                         record.get(FIRST_PRISONER.PATRONYMIC),
-                        record.get(FIRST_PRISONER_RATING.SCORE)
+                        record.get(FIRST_PRISONER_RATING.SCORE),
+                        record.get(FIRST_PRISONER.IS_ALIVE)
                 ),
                 secondPrisonerId == null ? null : new PrisonerFioEntity(
                         secondPrisonerId,
                         record.get(SECOND_PRISONER.LAST_NAME),
                         record.get(SECOND_PRISONER.FIRST_NAME),
                         record.get(SECOND_PRISONER.PATRONYMIC),
-                        record.get(SECOND_PRISONER_RATING.SCORE)
+                        record.get(SECOND_PRISONER_RATING.SCORE),
+                        record.get(SECOND_PRISONER.IS_ALIVE)
                 ),
-                Objects.equals(record.get(PLATFORM_ACTIVE_FLOOR.ACTIVE_FLOOR), record.get(PLATFORM_PRISONER.FLOOR))
+        Objects.equals(record.get(PLATFORM_ACTIVE_FLOOR.ACTIVE_FLOOR), record.get(PLATFORM_PRISONER.FLOOR))
         );
     }
+
     public Integer getMaxFloor() {
         return dslContext.select(max(PLATFORM_PRISONER.FLOOR))
                 .from(PLATFORM_PRISONER)
@@ -106,7 +109,7 @@ public class PlatformRepo implements BasePaginatedRepository {
     }
 
     public Integer getCurrentActiveFloor() {
-       Integer activeFloor = dslContext.select(PLATFORM_ACTIVE_FLOOR.ACTIVE_FLOOR)
+        Integer activeFloor = dslContext.select(PLATFORM_ACTIVE_FLOOR.ACTIVE_FLOOR)
                 .from(PLATFORM_ACTIVE_FLOOR)
                 .fetchOne(PLATFORM_ACTIVE_FLOOR.ACTIVE_FLOOR);
         return activeFloor == null ? 0 : activeFloor;

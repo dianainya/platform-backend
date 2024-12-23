@@ -1,6 +1,6 @@
 package sadiva.mpi.platformbackend.controller.rest;
 
-import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
@@ -8,9 +8,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sadiva.mpi.platformbackend.dto.PageResponseDto;
-import sadiva.mpi.platformbackend.dto.prisoner.PrisonerCreateOrUpdateReq;
+import sadiva.mpi.platformbackend.dto.prisoner.PrisonerCreateReq;
 import sadiva.mpi.platformbackend.dto.prisoner.PrisonerFilterParam;
 import sadiva.mpi.platformbackend.dto.prisoner.PrisonerRes;
+import sadiva.mpi.platformbackend.dto.prisoner.PrisonerUpdateReq;
 import sadiva.mpi.platformbackend.service.PrisonerService;
 
 import java.util.UUID;
@@ -23,7 +24,7 @@ public class PrisonerController {
     private final PrisonerService prisonerService;
 
     @PostMapping
-    public PrisonerRes registerPrisoner(@RequestBody PrisonerCreateOrUpdateReq prisonerCreateOrUpdateReq) {
+    public PrisonerRes registerPrisoner(@RequestBody @Valid PrisonerCreateReq prisonerCreateOrUpdateReq) {
         return prisonerService.save(prisonerCreateOrUpdateReq);
     }
 
@@ -46,7 +47,7 @@ public class PrisonerController {
     }
 
     @PutMapping("/{id}")
-    public PrisonerRes update(@PathVariable UUID id, @RequestBody PrisonerCreateOrUpdateReq dto) {
+    public PrisonerRes update(@PathVariable UUID id, @Valid @RequestBody PrisonerUpdateReq dto) {
         return prisonerService.update(id, dto);
     }
 

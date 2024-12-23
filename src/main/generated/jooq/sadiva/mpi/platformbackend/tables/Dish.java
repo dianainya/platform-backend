@@ -66,7 +66,7 @@ public class Dish extends TableImpl<DishRecord> {
     /**
      * The column <code>s283945.dish.receipt</code>.
      */
-    public final TableField<DishRecord, String> RECEIPT = createField(DSL.name("receipt"), SQLDataType.CLOB.nullable(false), this, "");
+    public final TableField<DishRecord, String> RECEIPT = createField(DSL.name("receipt"), SQLDataType.CLOB, this, "");
 
     /**
      * The column <code>s283945.dish.description</code>.

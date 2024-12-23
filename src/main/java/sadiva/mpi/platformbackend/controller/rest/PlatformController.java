@@ -1,7 +1,6 @@
 package sadiva.mpi.platformbackend.controller.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sadiva.mpi.platformbackend.dto.PageResponseDto;
 import sadiva.mpi.platformbackend.dto.platform.PlatformActiveFloorRes;
+import sadiva.mpi.platformbackend.dto.platform.PlatformDistribAvailabilityRes;
 import sadiva.mpi.platformbackend.dto.platform.PlatformStructureRes;
 import sadiva.mpi.platformbackend.service.PlatformService;
 
@@ -25,6 +25,12 @@ public class PlatformController {
     @Operation(description = "Распределить заключенных по этажам согласно БАРС")
     public void distributePrisoners() {
         platformService.distributePrisoners();
+    }
+
+    @GetMapping("/distribute-availibility")
+    @Operation(description = "Проверка доступности распределения заключенных по этажам согласно БАРС")
+    public PlatformDistribAvailabilityRes getDistributeAvailability() {
+       return platformService.getDistributeAvailability();
     }
 
     @GetMapping

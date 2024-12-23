@@ -89,7 +89,6 @@ public class Dish implements Serializable {
     /**
      * Getter for <code>s283945.dish.receipt</code>.
      */
-    @NotNull
     public String getReceipt() {
         return this.receipt;
     }

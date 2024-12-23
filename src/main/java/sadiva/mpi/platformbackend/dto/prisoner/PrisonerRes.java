@@ -14,6 +14,7 @@ public record PrisonerRes(
         Float weight,
         LocalDate birthDate,
         DishShortDtoRes favoriteDish,
-        BigDecimal rating
+        BigDecimal rating,
+        Boolean isAlive
 ) {
 }

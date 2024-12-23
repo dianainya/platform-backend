@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sadiva.mpi.platformbackend.dto.PageResponseDto;
 import sadiva.mpi.platformbackend.dto.platform.PlatformActiveFloorRes;
+import sadiva.mpi.platformbackend.dto.platform.PlatformDistribAvailabilityRes;
 import sadiva.mpi.platformbackend.dto.platform.PlatformStructureRes;
+import sadiva.mpi.platformbackend.dto.prisoner.PrisonerFilterParam;
 import sadiva.mpi.platformbackend.entity.PageEntity;
 import sadiva.mpi.platformbackend.entity.PlatformEntity;
 import sadiva.mpi.platformbackend.entity.PrisonerEntity;
@@ -67,5 +69,14 @@ public class PlatformService {
     public PlatformActiveFloorRes getActiveFloor() {
         final Integer activeFloor = this.platformRepo.getCurrentActiveFloor();
         return new PlatformActiveFloorRes(activeFloor);
+    }
+
+    public PlatformDistribAvailabilityRes getDistributeAvailability() {
+        List<PrisonerEntity> prisonerList = prisonerRepo.getAll(new PrisonerFilterParam(null, false));
+
+        if (!prisonerList.isEmpty()) {
+            return new PlatformDistribAvailabilityRes(false, "Не у всех заключенных заполнено блюдо");
+        }
+        return new PlatformDistribAvailabilityRes(true, null);
     }
 }

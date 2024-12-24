@@ -12,6 +12,7 @@ public record PrisonerRes(
         String firstName,
         String patronymic,
         Float weight,
+        String passport,
         LocalDate birthDate,
         DishShortDtoRes favoriteDish,
         BigDecimal rating,

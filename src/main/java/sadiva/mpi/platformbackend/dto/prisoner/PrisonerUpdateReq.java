@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public record PrisonerUpdateReq(
-
+        String password,
         @NotNull
         Double weight,
         @NotNull

@@ -25,6 +25,7 @@ public record PrisonerCreateReq(
         @NotNull
         LocalDate birthDate,
         @NotNull
-        String favoriteDishName
+        String favoriteDishName,
+        String password
 ) {
 }

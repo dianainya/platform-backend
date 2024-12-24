@@ -1,5 +1,6 @@
 package sadiva.mpi.platformbackend.service;
 
+import jakarta.validation.constraints.NotNull;
 import jooq.sadiva.mpi.platformbackend.tables.pojos.PlatformUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -86,5 +87,9 @@ public class UserService {
 
     public void delete(UUID userId) {
         userRepo.delete(userId);
+    }
+
+    public boolean updatePassword(@NotNull String username, String password) {
+        return userRepo.updatePassword(username, passwordEncoder.encode(password)) == 1;
     }
 }

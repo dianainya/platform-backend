@@ -4,6 +4,7 @@ import jooq.sadiva.mpi.platformbackend.tables.pojos.Prisoner;
 import jooq.sadiva.mpi.platformbackend.tables.pojos.PrisonerRating;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jooq.Record;
 import org.jooq.*;
 import org.jooq.impl.DSL;
@@ -73,14 +74,14 @@ public class PrisonerRepo implements BasePaginatedRepository {
                 .execute();
     }
 
-    public UUID update(UUID id, UUID dishId, Boolean isAlive, Double weight) {
+    public Prisoner update(UUID id, UUID dishId, Boolean isAlive, Double weight) {
         return dslContext.update(PRISONER)
                 .set(PRISONER.WEIGHT, weight)
                 .set(PRISONER.FAVORITE_DISH,dishId)
                 .set(PRISONER.IS_ALIVE,isAlive)
                 .where(PRISONER.ID.eq(id))
-                .returningResult(PRISONER.ID)
-                .fetchOneInto(UUID.class);
+                .returning()
+                .fetchOneInto(Prisoner.class);
     }
 
     private <T extends Record> SelectConditionStep<T> applyFilter(SelectConditionStep<T> query, PrisonerFilterParam filterParam) {
@@ -88,7 +89,8 @@ public class PrisonerRepo implements BasePaginatedRepository {
             Condition condition = DSL.or(
                     PRISONER.LAST_NAME.likeIgnoreCase("%" + filterParam.search() + "%"),
                     PRISONER.FIRST_NAME.likeIgnoreCase("%" + filterParam.search() + "%"),
-                    PRISONER.PATRONYMIC.likeIgnoreCase("%" + filterParam.search() + "%")
+                    PRISONER.PATRONYMIC.likeIgnoreCase("%" + filterParam.search() + "%"),
+                    PRISONER.PASSPORT.likeIgnoreCase("%" + filterParam.search() + "%")
             );
 
             query = query.and(condition);

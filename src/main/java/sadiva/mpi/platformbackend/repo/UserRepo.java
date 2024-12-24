@@ -48,7 +48,8 @@ public class UserRepo implements BasePaginatedRepository {
                                 .where(USER_ROLE.USER_ID.eq(PLATFORM_USER.USER_ID))
                                 .asTable("roles")))
                 .from(PLATFORM_USER)
-                .where();
+                .leftJoin(USER_ROLE).on(USER_ROLE.USER_ID.eq(PLATFORM_USER.USER_ID).and(USER_ROLE.ROLE.eq("PRISONER")))
+                .where(USER_ROLE.USER_ID.isNull());
     }
 
 
@@ -89,5 +90,12 @@ public class UserRepo implements BasePaginatedRepository {
 
     public void delete(UUID userId) {
         dsl.deleteFrom(PLATFORM_USER).where(PLATFORM_USER.USER_ID.eq(userId)).execute();
+    }
+
+    public int updatePassword(String username, String encode) {
+        return dsl.update(PLATFORM_USER)
+                .set(PLATFORM_USER.PASSWORD, encode)
+                .where(PLATFORM_USER.USERNAME.eq(username))
+                .execute();
     }
 }

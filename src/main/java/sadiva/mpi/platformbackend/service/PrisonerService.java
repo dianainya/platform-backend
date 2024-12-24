@@ -2,13 +2,16 @@ package sadiva.mpi.platformbackend.service;
 
 import jakarta.validation.Valid;
 import jooq.sadiva.mpi.platformbackend.tables.pojos.Dish;
+import jooq.sadiva.mpi.platformbackend.tables.pojos.Prisoner;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sadiva.mpi.platformbackend.dto.PageResponseDto;
+import sadiva.mpi.platformbackend.dto.auth.AuthReq;
 import sadiva.mpi.platformbackend.dto.prisoner.PrisonerCreateReq;
 import sadiva.mpi.platformbackend.dto.prisoner.PrisonerFilterParam;
 import sadiva.mpi.platformbackend.dto.prisoner.PrisonerRes;
@@ -20,6 +23,7 @@ import sadiva.mpi.platformbackend.repo.PrisonerRepo;
 import sadiva.mpi.platformbackend.service.exception.ValidationException;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -27,6 +31,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PrisonerService {
     private final PrisonerRepo prisonerRepo;
+    private final UserService userService;
     private final PrisonerMapper prisonerMapper;
     private final DishService dishService;
 
@@ -46,7 +51,7 @@ public class PrisonerService {
         } catch (DuplicateKeyException e) {
             throw new ValidationException("Заключенный с указанным паспортом уже зарегистрирован");
         }
-
+        userService.authorize(new AuthReq(dto.password(), dto.password(), List.of("PRISONER")));
         return getById(prisonerId);
     }
 
@@ -75,7 +80,13 @@ public class PrisonerService {
         if (dish == null) {
             dish = dishService.createNotImplementedDish(dto.favoriteDishName());
         }
-        UUID prisonerId = prisonerRepo.update(id, dish.getId(), dto.isAlive(), dto.weight());
-        return getById(prisonerId);
+        Prisoner prisoner = prisonerRepo.update(id, dish.getId(), dto.isAlive(), dto.weight());
+        if (StringUtils.isNotBlank(dto.password())) {
+           boolean isPasswordChanged = userService.updatePassword(prisoner.getPassport(), dto.password());
+            if (!isPasswordChanged) {
+                userService.authorize(new AuthReq(dto.password(), dto.password(), List.of("PRISONER")));
+            }
+        }
+        return getById(prisoner.getId());
     }
 }

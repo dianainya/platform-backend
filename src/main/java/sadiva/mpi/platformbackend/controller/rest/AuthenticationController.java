@@ -22,9 +22,9 @@ public class AuthenticationController {
 //        userService.authorize(authReq);
 //    }
 
-    @PostMapping("/authenticate")
-    @Operation(summary = "Log in user", description = "Create JWT token for authenticated user")
-    public AuthRes createAuthenticationToken(@RequestBody LoginReq authReq) {
-        return userService.createAuthenticationToken(authReq);
-    }
+//    @PostMapping("/authenticate")
+//    @Operation(summary = "Log in user", description = "Create JWT token for authenticated user")
+//    public AuthRes createAuthenticationToken(@RequestBody LoginReq authReq) {
+//        return userService.createAuthenticationToken(authReq);
+//    }
 }

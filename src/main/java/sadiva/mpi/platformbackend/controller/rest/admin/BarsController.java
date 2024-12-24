@@ -1,4 +1,4 @@
-package sadiva.mpi.platformbackend.controller.rest;
+package sadiva.mpi.platformbackend.controller.rest.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -13,7 +13,7 @@ import sadiva.mpi.platformbackend.service.BarsService;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/bars")
+@RequestMapping("api/v1/private/bars")
 @RequiredArgsConstructor
 //@PreAuthorize("hasAnyAuthority('admin, prisoner_register')")
 public class BarsController {

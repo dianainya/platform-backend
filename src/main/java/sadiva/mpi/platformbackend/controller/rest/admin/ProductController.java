@@ -1,4 +1,4 @@
-package sadiva.mpi.platformbackend.controller.rest;
+package sadiva.mpi.platformbackend.controller.rest.admin;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import sadiva.mpi.platformbackend.service.ProductService;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/products")
+@RequestMapping("api/v1/private/products")
 @RequiredArgsConstructor
 //@PreAuthorize("hasAnyAuthority('admin, prisoner_register', 'cook')")
 public class ProductController {

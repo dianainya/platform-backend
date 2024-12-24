@@ -1,4 +1,4 @@
-package sadiva.mpi.platformbackend.controller.rest;
+package sadiva.mpi.platformbackend.controller.rest.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import sadiva.mpi.platformbackend.service.CurrentMenuService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/menu")
+@RequestMapping("/api/v1/private/menu")
 @RequiredArgsConstructor
 public class CurrentMenuController {
     private final CurrentMenuService currentMenuService;

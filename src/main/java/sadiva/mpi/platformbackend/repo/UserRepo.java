@@ -48,6 +48,16 @@ public class UserRepo implements BasePaginatedRepository {
                                 .where(USER_ROLE.USER_ID.eq(PLATFORM_USER.USER_ID))
                                 .asTable("roles")))
                 .from(PLATFORM_USER)
+                .where();
+    }
+    @NotNull
+    private SelectConditionStep<Record2<PlatformUserRecord, Result<Record1<String>>>> getSelectConditionStepWithoutPrisoners() {
+        return dsl.select(
+                        PLATFORM_USER,
+                        multiset(dsl.select(USER_ROLE.ROLE).from(USER_ROLE)
+                                .where(USER_ROLE.USER_ID.eq(PLATFORM_USER.USER_ID))
+                                .asTable("roles")))
+                .from(PLATFORM_USER)
                 .leftJoin(USER_ROLE).on(USER_ROLE.USER_ID.eq(PLATFORM_USER.USER_ID).and(USER_ROLE.ROLE.eq("PRISONER")))
                 .where(USER_ROLE.USER_ID.isNull());
     }
@@ -80,7 +90,7 @@ public class UserRepo implements BasePaginatedRepository {
     }
 
     public PageEntity<PlatformUserEntity> getPaginated(Pageable pageable) {
-        var select = getSelectConditionStep();
+        var select = getSelectConditionStepWithoutPrisoners();
         Integer count = dsl.selectCount().from(PLATFORM_USER).fetchOneInto(Integer.class);
         return new PageEntity<>(
                 applyPagination(select, pageable).fetch(this::mapToEntity),

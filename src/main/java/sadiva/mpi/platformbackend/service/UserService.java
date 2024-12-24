@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import sadiva.mpi.platformbackend.dto.PageResponseDto;
 import sadiva.mpi.platformbackend.dto.auth.AuthReq;
 import sadiva.mpi.platformbackend.dto.auth.AuthRes;
+import sadiva.mpi.platformbackend.dto.auth.LoginReq;
 import sadiva.mpi.platformbackend.dto.user.RolesReq;
 import sadiva.mpi.platformbackend.dto.user.UserCreateReq;
 import sadiva.mpi.platformbackend.dto.user.UserRes;
@@ -27,6 +29,7 @@ import sadiva.mpi.platformbackend.security.JwtUtil;
 import sadiva.mpi.platformbackend.service.exception.ConflictException;
 
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -41,12 +44,12 @@ public class UserService {
     private final UserMapper userMapper;
 
 
-    public AuthRes createAuthenticationToken(@RequestBody AuthReq authReq) {
+    public AuthRes createAuthenticationToken(@RequestBody LoginReq authReq) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authReq.username(), authReq.password()));
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authReq.username());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-        return new AuthRes(jwt, userDetails.getAuthorities().toArray());
+        return new AuthRes(jwt, userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
     }
 
     @Transactional
@@ -54,6 +57,7 @@ public class UserService {
         if (userRepo.isExistByUsername(authReq.username())) {
             throw new ConflictException("User already exists");
         }
+
         PlatformUser user = userRepo.create(authReq.username(), passwordEncoder.encode(authReq.password()));
         userRepo.assignRoles(user.getUserId(), authReq.roles());
     }

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sadiva.mpi.platformbackend.dto.auth.AuthReq;
 import sadiva.mpi.platformbackend.dto.auth.AuthRes;
+import sadiva.mpi.platformbackend.dto.auth.LoginReq;
 import sadiva.mpi.platformbackend.service.UserService;
 
 @RestController
@@ -23,7 +24,7 @@ public class AuthenticationController {
 
     @PostMapping("/authenticate")
     @Operation(summary = "Log in user", description = "Create JWT token for authenticated user")
-    public AuthRes createAuthenticationToken(@RequestBody AuthReq authReq) {
+    public AuthRes createAuthenticationToken(@RequestBody LoginReq authReq) {
         return userService.createAuthenticationToken(authReq);
     }
 }

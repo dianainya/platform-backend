@@ -1,4 +1,4 @@
-package sadiva.mpi.platformbackend.controller.rest;
+package sadiva.mpi.platformbackend.controller.rest.admin;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +8,7 @@ import sadiva.mpi.platformbackend.dto.user.RolesRes;
 import sadiva.mpi.platformbackend.service.RoleService;
 
 @RestController
-@RequestMapping("api/v1/roles")
+@RequestMapping("api/v1/private/roles")
 @RequiredArgsConstructor
 public class RoleController {
     private final RoleService roleService;

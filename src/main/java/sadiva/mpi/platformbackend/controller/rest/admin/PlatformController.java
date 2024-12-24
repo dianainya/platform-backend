@@ -1,4 +1,4 @@
-package sadiva.mpi.platformbackend.controller.rest;
+package sadiva.mpi.platformbackend.controller.rest.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import sadiva.mpi.platformbackend.dto.platform.PlatformStructureRes;
 import sadiva.mpi.platformbackend.service.PlatformService;
 
 @RestController
-@RequestMapping("api/v1/platform")
+@RequestMapping("api/v1/private/platform")
 @RequiredArgsConstructor
 //@PreAuthorize("hasAnyAuthority('admin, prisoner_register')")
 public class PlatformController {

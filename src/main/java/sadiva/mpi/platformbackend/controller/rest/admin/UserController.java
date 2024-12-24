@@ -1,4 +1,4 @@
-package sadiva.mpi.platformbackend.controller.rest;
+package sadiva.mpi.platformbackend.controller.rest.admin;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import sadiva.mpi.platformbackend.service.UserService;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/users")
+@RequestMapping("api/v1/private/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;

@@ -15,12 +15,12 @@ import sadiva.mpi.platformbackend.service.UserService;
 public class AuthenticationController {
     private final UserService userService;
 
-    @PostMapping("/authorize")
-    @Operation(summary = "Register user", description = "Create new user")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void authorize(@RequestBody AuthReq authReq) {
-        userService.authorize(authReq);
-    }
+//    @PostMapping("/authorize")
+//    @Operation(summary = "Register user", description = "Create new user")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public void authorize(@RequestBody AuthReq authReq) {
+//        userService.authorize(authReq);
+//    }
 
     @PostMapping("/authenticate")
     @Operation(summary = "Log in user", description = "Create JWT token for authenticated user")

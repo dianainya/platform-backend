@@ -1,4 +1,4 @@
-package sadiva.mpi.platformbackend.controller.rest;
+package sadiva.mpi.platformbackend.controller.rest.admin;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import sadiva.mpi.platformbackend.service.DishService;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/dishes")
+@RequestMapping("api/v1/private/dishes")
 @RequiredArgsConstructor
 public class DishController {
     private final DishService dishService;

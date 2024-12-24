@@ -8,9 +8,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sadiva.mpi.platformbackend.dto.PageResponseDto;
-import sadiva.mpi.platformbackend.dto.user.RolesReq;
-import sadiva.mpi.platformbackend.dto.user.UserCreateReq;
-import sadiva.mpi.platformbackend.dto.user.UserRes;
+import sadiva.mpi.platformbackend.dto.admin.user.RolesReq;
+import sadiva.mpi.platformbackend.dto.admin.user.UserCreateReq;
+import sadiva.mpi.platformbackend.dto.admin.user.UserRes;
 import sadiva.mpi.platformbackend.service.UserService;
 
 import java.util.UUID;

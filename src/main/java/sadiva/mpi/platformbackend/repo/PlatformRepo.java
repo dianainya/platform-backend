@@ -163,4 +163,13 @@ public class PlatformRepo implements BasePaginatedRepository {
                 .fetch(r -> new DishCountEntity(r.component1(), r.component2()));
 
     }
+
+    public Integer getMyFloor(String username) {
+        return dslContext.select(PLATFORM_PRISONER.FLOOR)
+                .from(PRISONER)
+                .leftJoin(PLATFORM_PRISONER).on(PRISONER.ID.eq(PLATFORM_PRISONER.FIRST_PRISONER)
+                        .or(PRISONER.ID.eq(PLATFORM_PRISONER.SECOND_PRISONER)))
+                .where(PRISONER.PASSPORT.eq(username))
+                .fetchOne(PLATFORM_PRISONER.FLOOR);
+    }
 }

@@ -5,9 +5,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import sadiva.mpi.platformbackend.dto.bars.BarsAddScoreReq;
-import sadiva.mpi.platformbackend.dto.bars.BarsSubtractScoreReq;
-import sadiva.mpi.platformbackend.dto.bars.ViolationRes;
+import sadiva.mpi.platformbackend.dto.admin.bars.BarsAddScoreReq;
+import sadiva.mpi.platformbackend.dto.admin.bars.BarsSubtractScoreReq;
+import sadiva.mpi.platformbackend.dto.admin.bars.ViolationRes;
 import sadiva.mpi.platformbackend.service.BarsService;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/private/bars")
 @RequiredArgsConstructor
-//@PreAuthorize("hasAnyAuthority('admin, prisoner_register')")
+@PreAuthorize("hasAnyAuthority('admin, prisoner_register')")
 public class BarsController {
     private final BarsService barsService;
 

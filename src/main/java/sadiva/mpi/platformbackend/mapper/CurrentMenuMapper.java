@@ -1,8 +1,8 @@
 package sadiva.mpi.platformbackend.mapper;
 
 import org.mapstruct.Mapper;
-import sadiva.mpi.platformbackend.dto.menu.DishPickupReq;
-import sadiva.mpi.platformbackend.dto.menu.CurrentMenuRes;
+import sadiva.mpi.platformbackend.dto.admin.menu.DishPickupReq;
+import sadiva.mpi.platformbackend.dto.admin.menu.CurrentMenuRes;
 import sadiva.mpi.platformbackend.entity.CurrentMenuEntity;
 import sadiva.mpi.platformbackend.entity.DishPickupEntity;
 

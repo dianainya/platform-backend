@@ -3,7 +3,7 @@ package sadiva.mpi.platformbackend.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import sadiva.mpi.platformbackend.dto.user.RolesRes;
+import sadiva.mpi.platformbackend.dto.admin.user.RolesRes;
 import sadiva.mpi.platformbackend.repo.RoleRepo;
 
 @Slf4j

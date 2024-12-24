@@ -2,8 +2,8 @@ package sadiva.mpi.platformbackend.mapper;
 
 import jooq.sadiva.mpi.platformbackend.tables.pojos.Product;
 import org.mapstruct.Mapper;
-import sadiva.mpi.platformbackend.dto.product.ProductCreateOrUpdateDtoReq;
-import sadiva.mpi.platformbackend.dto.product.ProductDtoRes;
+import sadiva.mpi.platformbackend.dto.admin.product.ProductCreateOrUpdateDtoReq;
+import sadiva.mpi.platformbackend.dto.admin.product.ProductDtoRes;
 import sadiva.mpi.platformbackend.entity.ProductEntity;
 
 import java.util.List;

@@ -49,8 +49,8 @@ public class SecurityConfig {
     }
 
     private static final String[] AUTH_WHITELIST = {
-            "/api/v1/private/authenticate",
-            "/api/v1/private/authorize",
+            "/api/v1/authenticate",
+            "/api/v1/authorize",
             // -- Swagger
             "/v3/api-docs/**",
             "/swagger-ui/**",

@@ -3,8 +3,8 @@ package sadiva.mpi.platformbackend.mapper;
 import jooq.sadiva.mpi.platformbackend.tables.pojos.Prisoner;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import sadiva.mpi.platformbackend.dto.prisoner.PrisonerCreateReq;
-import sadiva.mpi.platformbackend.dto.prisoner.PrisonerRes;
+import sadiva.mpi.platformbackend.dto.admin.prisoner.PrisonerCreateReq;
+import sadiva.mpi.platformbackend.dto.admin.prisoner.PrisonerRes;
 import sadiva.mpi.platformbackend.entity.PrisonerEntity;
 
 import java.util.List;

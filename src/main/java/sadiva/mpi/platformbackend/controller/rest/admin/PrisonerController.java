@@ -8,10 +8,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sadiva.mpi.platformbackend.dto.PageResponseDto;
-import sadiva.mpi.platformbackend.dto.prisoner.PrisonerCreateReq;
-import sadiva.mpi.platformbackend.dto.prisoner.PrisonerFilterParam;
-import sadiva.mpi.platformbackend.dto.prisoner.PrisonerRes;
-import sadiva.mpi.platformbackend.dto.prisoner.PrisonerUpdateReq;
+import sadiva.mpi.platformbackend.dto.admin.prisoner.PrisonerCreateReq;
+import sadiva.mpi.platformbackend.dto.admin.prisoner.PrisonerFilterParam;
+import sadiva.mpi.platformbackend.dto.admin.prisoner.PrisonerRes;
+import sadiva.mpi.platformbackend.dto.admin.prisoner.PrisonerUpdateReq;
 import sadiva.mpi.platformbackend.service.PrisonerService;
 
 import java.util.UUID;
@@ -19,7 +19,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("api/v1/private/prisoners")
 @RequiredArgsConstructor
-//@PreAuthorize("hasAnyAuthority('admin, prisoner_register')")
+@PreAuthorize("hasAnyAuthority('admin, prisoner_register')")
 public class PrisonerController {
     private final PrisonerService prisonerService;
 

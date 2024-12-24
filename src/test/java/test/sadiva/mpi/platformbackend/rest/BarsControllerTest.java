@@ -17,8 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import sadiva.mpi.platformbackend.PlatformBackendApplication;
-import sadiva.mpi.platformbackend.dto.bars.BarsAddScoreReq;
-import sadiva.mpi.platformbackend.dto.bars.BarsSubtractScoreReq;
+import sadiva.mpi.platformbackend.dto.admin.bars.BarsAddScoreReq;
+import sadiva.mpi.platformbackend.dto.admin.bars.BarsSubtractScoreReq;
 import test.sadiva.mpi.platformbackend.utils.BaseUtils;
 import test.sadiva.mpi.platformbackend.utils.DishUtils;
 import test.sadiva.mpi.platformbackend.utils.PrisonerUtils;
@@ -27,7 +27,6 @@ import test.sadiva.mpi.platformbackend.utils.ProductUtils;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import static jooq.sadiva.mpi.platformbackend.Tables.PRISONER;
 import static jooq.sadiva.mpi.platformbackend.Tables.PRISONER_RATING;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

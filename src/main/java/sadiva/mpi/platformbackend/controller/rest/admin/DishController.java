@@ -8,9 +8,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sadiva.mpi.platformbackend.dto.PageResponseDto;
-import sadiva.mpi.platformbackend.dto.dish.DishCreateOrUpdateReqDto;
-import sadiva.mpi.platformbackend.dto.dish.DishDtoRes;
-import sadiva.mpi.platformbackend.dto.dish.DishFilterParam;
+import sadiva.mpi.platformbackend.dto.admin.dish.DishCreateOrUpdateReqDto;
+import sadiva.mpi.platformbackend.dto.admin.dish.DishDtoRes;
+import sadiva.mpi.platformbackend.dto.admin.dish.DishFilterParam;
 import sadiva.mpi.platformbackend.service.DishService;
 
 import java.util.UUID;

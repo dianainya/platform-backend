@@ -1,5 +1,7 @@
 package sadiva.mpi.platformbackend.repo;
 
+import io.micrometer.common.util.StringUtils;
+import jakarta.validation.Valid;
 import jooq.sadiva.mpi.platformbackend.tables.pojos.Product;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -8,6 +10,7 @@ import org.jooq.Record;
 import org.jooq.SelectConditionStep;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import sadiva.mpi.platformbackend.dto.admin.product.ProductFilterParam;
 import sadiva.mpi.platformbackend.entity.PageEntity;
 import sadiva.mpi.platformbackend.entity.ProductEntity;
 
@@ -48,10 +51,21 @@ public class ProductRepo implements BasePaginatedRepository {
                 .where();
     }
 
-    public PageEntity<ProductEntity> getAllPaginated(Pageable pageable) {
-        @NotNull List<ProductEntity> res = applyPagination(getSelectOnConditionStep(), pageable).fetch(this::mapToEntity);
-        Integer totalCount = dslContext.selectCount().from(PRODUCT).fetchOne(0, Integer.class);
+    public PageEntity<ProductEntity> getAllPaginated(@Valid ProductFilterParam filterParam, Pageable pageable) {
+        List<ProductEntity> res = applyPagination(
+                applyFilter(getSelectOnConditionStep(), filterParam),
+                pageable
+        ).fetch(this::mapToEntity);
+        Integer totalCount = applyFilter(dslContext.selectCount().from(PRODUCT).where(), filterParam)
+                .fetchOne(0, Integer.class);
         return new PageEntity<>(res, totalCount);
+    }
+
+    private <T extends Record> SelectConditionStep<T> applyFilter(SelectConditionStep<T> query, ProductFilterParam filterParam) {
+        if (StringUtils.isNotEmpty(filterParam.search())) {
+            query = query.and(PRODUCT.NAME.containsIgnoreCase(filterParam.search()));
+        }
+        return query;
     }
 
     public void deleteById(UUID id) {

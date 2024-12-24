@@ -5,8 +5,8 @@ import jooq.sadiva.mpi.platformbackend.tables.pojos.Product;
 import org.jooq.Record2;
 import org.jooq.Result;
 import org.mapstruct.Mapper;
-import sadiva.mpi.platformbackend.dto.dish.DishCreateOrUpdateReqDto;
-import sadiva.mpi.platformbackend.dto.dish.DishDtoRes;
+import sadiva.mpi.platformbackend.dto.admin.dish.DishCreateOrUpdateReqDto;
+import sadiva.mpi.platformbackend.dto.admin.dish.DishDtoRes;
 import sadiva.mpi.platformbackend.entity.DishEntity;
 import sadiva.mpi.platformbackend.entity.IngredientEntity;
 

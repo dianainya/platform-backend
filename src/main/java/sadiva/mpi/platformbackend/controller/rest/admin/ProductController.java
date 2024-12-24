@@ -8,8 +8,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sadiva.mpi.platformbackend.dto.PageResponseDto;
-import sadiva.mpi.platformbackend.dto.product.ProductCreateOrUpdateDtoReq;
-import sadiva.mpi.platformbackend.dto.product.ProductDtoRes;
+import sadiva.mpi.platformbackend.dto.admin.product.ProductCreateOrUpdateDtoReq;
+import sadiva.mpi.platformbackend.dto.admin.product.ProductDtoRes;
+import sadiva.mpi.platformbackend.dto.admin.product.ProductFilterParam;
 import sadiva.mpi.platformbackend.service.ProductService;
 
 import java.util.UUID;
@@ -17,13 +18,14 @@ import java.util.UUID;
 @RestController
 @RequestMapping("api/v1/private/products")
 @RequiredArgsConstructor
-//@PreAuthorize("hasAnyAuthority('admin, prisoner_register', 'cook')")
+@PreAuthorize("hasAnyAuthority('admin, prisoner_register', 'cook')")
 public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public PageResponseDto<ProductDtoRes> getPaginated(@ParameterObject @PageableDefault(page = 1) Pageable pageable) {
-        return productService.getPaginated(pageable);
+    public PageResponseDto<ProductDtoRes> getPaginated(@ModelAttribute @Valid @ParameterObject ProductFilterParam filterParam,
+                                                       @ParameterObject @PageableDefault(page = 1) Pageable pageable) {
+        return productService.getPaginated(filterParam, pageable);
     }
 
     @GetMapping("/{id}")

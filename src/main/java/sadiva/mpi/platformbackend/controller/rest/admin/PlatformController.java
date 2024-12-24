@@ -8,15 +8,15 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sadiva.mpi.platformbackend.dto.PageResponseDto;
-import sadiva.mpi.platformbackend.dto.platform.PlatformActiveFloorRes;
-import sadiva.mpi.platformbackend.dto.platform.PlatformDistribAvailabilityRes;
-import sadiva.mpi.platformbackend.dto.platform.PlatformStructureRes;
+import sadiva.mpi.platformbackend.dto.admin.platform.PlatformActiveFloorRes;
+import sadiva.mpi.platformbackend.dto.admin.platform.PlatformDistribAvailabilityRes;
+import sadiva.mpi.platformbackend.dto.admin.platform.PlatformStructureRes;
 import sadiva.mpi.platformbackend.service.PlatformService;
 
 @RestController
 @RequestMapping("api/v1/private/platform")
 @RequiredArgsConstructor
-//@PreAuthorize("hasAnyAuthority('admin, prisoner_register')")
+@PreAuthorize("hasAnyAuthority('admin, prisoner_register')")
 public class PlatformController {
     private final PlatformService platformService;
 

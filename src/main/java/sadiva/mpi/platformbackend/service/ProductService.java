@@ -1,5 +1,6 @@
 package sadiva.mpi.platformbackend.service;
 
+import jakarta.validation.Valid;
 import jooq.sadiva.mpi.platformbackend.tables.pojos.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,8 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sadiva.mpi.platformbackend.dto.PageResponseDto;
-import sadiva.mpi.platformbackend.dto.product.ProductCreateOrUpdateDtoReq;
-import sadiva.mpi.platformbackend.dto.product.ProductDtoRes;
+import sadiva.mpi.platformbackend.dto.admin.product.ProductCreateOrUpdateDtoReq;
+import sadiva.mpi.platformbackend.dto.admin.product.ProductDtoRes;
+import sadiva.mpi.platformbackend.dto.admin.product.ProductFilterParam;
 import sadiva.mpi.platformbackend.entity.PageEntity;
 import sadiva.mpi.platformbackend.entity.ProductEntity;
 import sadiva.mpi.platformbackend.mapper.ProductMapper;
@@ -41,8 +43,8 @@ public class ProductService {
         return productMapper.fromEntityToDto(productRepo.getById(id));
     }
 
-    public PageResponseDto<ProductDtoRes> getPaginated(Pageable pageable) {
-        PageEntity<ProductEntity> contentAndTotal = productRepo.getAllPaginated(pageable);
+    public PageResponseDto<ProductDtoRes> getPaginated(@Valid ProductFilterParam filterParam, Pageable pageable) {
+        PageEntity<ProductEntity> contentAndTotal = productRepo.getAllPaginated(filterParam, pageable);
         return new PageResponseDto<>(
                 productMapper.fromEntityToDtoList(contentAndTotal.content()),
                 contentAndTotal.total(),
